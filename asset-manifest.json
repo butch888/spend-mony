@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/spend-mony/static/css/main.68052830.css",
+    "main.js": "/spend-mony/static/js/main.650483ff.js",
+    "static/js/787.3498f92a.chunk.js": "/spend-mony/static/js/787.3498f92a.chunk.js",
+    "index.html": "/spend-mony/index.html",
+    "main.68052830.css.map": "/spend-mony/static/css/main.68052830.css.map",
+    "main.650483ff.js.map": "/spend-mony/static/js/main.650483ff.js.map",
+    "787.3498f92a.chunk.js.map": "/spend-mony/static/js/787.3498f92a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68052830.css",
+    "static/js/main.650483ff.js"
+  ]
+}
