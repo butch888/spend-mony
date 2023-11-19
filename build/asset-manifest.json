@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mony/static/css/main.b8fff0ad.css",
+    "main.js": "/mony/static/js/main.1cddbda2.js",
+    "static/js/787.3498f92a.chunk.js": "/mony/static/js/787.3498f92a.chunk.js",
+    "index.html": "/mony/index.html",
+    "main.b8fff0ad.css.map": "/mony/static/css/main.b8fff0ad.css.map",
+    "main.1cddbda2.js.map": "/mony/static/js/main.1cddbda2.js.map",
+    "787.3498f92a.chunk.js.map": "/mony/static/js/787.3498f92a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8fff0ad.css",
+    "static/js/main.1cddbda2.js"
+  ]
+}
