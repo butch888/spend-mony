@@ -1,23 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 import { PlusOutlined, MinusOutlined, EditOutlined } from '@ant-design/icons';
 import { date } from '../../date';
 import { Input, Select, Button } from '../../AppStyle';
-import Alt from '../../Alert';
-import PromptAdd from '../../PromptAdd';
-import Confirm from '../../Confirm';
-import PromptEdit from '../../PromptEdit';
+import Alt from '../Popups/Alert/Alert';
+import PromptAdd from '../Popups/PromptAdd/PromptAdd';
+import Confirm from '../Popups/Confirm/Confirm';
+import PromptEdit from '../Popups/PromptEdit/PromptEdit';
 
 function Categories({ selectedCategory, setSelectedCategory, data, setData, setPurchases, onClose, setText, text, setActiveAlert, activAlert }) {
 
-    let ctg = localStorage.getItem('categories');
-
-    if(ctg === null) {
-        localStorage.setItem('categories', JSON.stringify(['Продукты', 'Топливо', 'Развлечения', 'Ремонт']));
+    let category = localStorage.getItem('category');
+    if (category === null) {
+        localStorage.setItem('category', JSON.stringify(['Продукты', 'Топливо', 'Развлечения', 'Ремонт']));
     }
-
-    let strCategories = localStorage.getItem('categories');
+    let strCategories = localStorage.getItem('category');
     let arrCategories = JSON.parse(strCategories)
 
     const [categories, setCategories] = useState(arrCategories);
@@ -27,7 +25,6 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, setP
     const [activPromptEdit, setActivePromptEdit] = useState(false);
     const [activConfirm, setActiveConfirm] = useState(false);
     const [inpValueAddCategory, setInpValueAddCategory] = useState('');
-
 
     const addCategory = () => {
         setActivePromptAdd(true);
@@ -65,7 +62,7 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, setP
     }
 
     const handleDelCategory = () => {
-        if(selectedCategory === 'Категории') {
+        if (selectedCategory === 'Категории') {
             setActiveAlert(true);
             setText('Чтобы удалить категорию, выберите категорию, которую хотите удалить!');
         } else {
@@ -91,12 +88,12 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, setP
     }
 
     function handleEditCategory() {
-        if(selectedCategory === 'Категории') {
+        if (selectedCategory === 'Категории') {
             setActiveAlert(true);
             setText('Чтобы изменить категорию, выберите категорию!');
         } else {
             setActivePromptEdit(true);
-            if(inpValueAddCategory !== '' && activPromptEdit === true) {
+            if (inpValueAddCategory !== '' && activPromptEdit === true) {
                 const newCategory = inpValueAddCategory.trim()[0].toUpperCase() + inpValueAddCategory.slice(1, inpValueAddCategory.length);
                 let copy = [...categories];
                 copy[copy.indexOf(selectedCategory)] = newCategory;
@@ -105,7 +102,7 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, setP
                 setSelectedCategory(newCategory);
 
                 let copyPurchases = data.map((purch) => {
-                    if(purch.kind === selectedCategory) {
+                    if (purch.kind === selectedCategory) {
                         purch.kind = newCategory;
                     }
                     return purch;
@@ -123,7 +120,7 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, setP
     }
 
     const handleAddPurchase = () => {
-        if(selectedCategory === 'Категории') {
+        if (selectedCategory === 'Категории') {
             setActiveAlert(true);
             setText('Для добавления новой записи, выберите "Категорию!"');
         } else if(inpValueName === '') {
@@ -133,7 +130,9 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, setP
             setActiveAlert(true);
             setText('Для добавления новой записи, введите стоимость покупки!');
         } else {
-            let copy = [...data, {id: nanoid(5), isChecked: false, date: date, designation: inpValueName, kind: selectedCategory, cost: inpValueCost}];
+            // let copy = [...data, {id: nanoid(5), isChecked: false, date: date, designation: inpValueName, kind: selectedCategory, cost: inpValueCost}];
+            let copy = [...data];
+            copy.unshift({id: nanoid(5), date: date, designation: inpValueName, kind: selectedCategory, cost: inpValueCost})
             setData(copy);
             localStorage.setItem('spends', JSON.stringify(copy));
             setInpValueName('');

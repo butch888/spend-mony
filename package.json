@@ -2,7 +2,7 @@
   "name": "money-spending-journal",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://butch888.github.io/mony/",
+  "homepage": "https://butch888.github.io/spend-mony/",
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@testing-library/jest-dom": "^5.17.0",

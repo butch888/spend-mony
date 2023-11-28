@@ -58,12 +58,6 @@ function Table({ purchases, data, setData }) {
         localStorage.setItem('spends', JSON.stringify(copy));
     }
 
-    let sum = 0;
-    function getSum() {
-        purchases.map((e) => sum = sum + +e.cost)
-        return sum;
-    }
-
     const rows = purchases.map((purchase) => (
       <tr key={purchase.id} draggable>
             <Td><EditableCell value={purchase.date} onChange={(value) => handleCellChange(purchase.id, "date", value)} isEditable={true} /></Td>
@@ -92,11 +86,6 @@ function Table({ purchases, data, setData }) {
                 </Thead>
                 <tbody>
                     {rows}
-                    <tr>
-                        <Td colSpan={3}></Td>
-                        <Td>Итого:</Td>
-                        <Td>{getSum()}</Td>
-                    </tr>
                 </tbody>
             </TableSpend>
         </div>

@@ -4,6 +4,7 @@ import Table from './Components/Table/Table';
 import Statistic from './Components/Statistic/Statistic';
 import { Wrapper, Container, Title } from './AppStyle';
 import './App.css'
+import { date } from './date';
 
 function App() {
   
@@ -13,9 +14,11 @@ function App() {
     localStorage.setItem('spends', JSON.stringify([]));
   }
   let strFromStorage = localStorage.getItem('spends');
-  let shopping = JSON.parse(strFromStorage);
+  let shoppings = JSON.parse(strFromStorage);
 
-  const [data, setData] = useState(shopping);
+  const shoppingsToday = shoppings.filter(elem => elem.date === date); // показывает только сегодняшние записи
+
+  const [data, setData] = useState(shoppings);
   const [purchases, setPurchases] = useState([]);
   const [time, setTime] = useState('Все категории за все время:');
   const [selectedCategory, setSelectedCategory] = useState('Категории');
@@ -25,11 +28,11 @@ function App() {
   const [selectedMonth, setSelectedMonth] = useState('Месяц');
   const [selectedYear, setSelectedYear] = useState('Год');
   const [isMonth, setIsMonth] = useState(false);
-  
+
   useEffect(() => {
     if (selectedCategory === 'Категории') {
-      setPurchases(data);
-      setTime(`Все ${selectedCategory.toLowerCase()} за все время:`);
+      setPurchases(shoppingsToday);
+      setTime(`Все ${selectedCategory.toLowerCase()} за все сегодня:`);
     } else {
       const filteretData = data.filter(elem => elem.kind === selectedCategory)
       setPurchases(filteretData);
@@ -110,6 +113,7 @@ function App() {
               purchases={purchases} 
               setPurchases={setPurchases}
               setTime={setTime}/>
+              
         </Container>
     </Wrapper>
   );

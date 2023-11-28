@@ -12,7 +12,7 @@ for (let i = 2021; i <= 2032; i++) {
 const arrDays = Array.from(Array(31).keys(), num => num + 1);
 
 function Statistic({data, 
-                    setPurchases, 
+                    purchases, setPurchases, 
                     selectedCategory, 
                     time, setTime, 
                     onClose, 
@@ -22,7 +22,13 @@ function Statistic({data,
                     selectedMonth, setSelectedMonth,
                     selectedYear, setSelectedYear,
                     getDay, getMonth, getYear,
-                    isMonth, setIsMonth }) {
+                    isMonth, setIsMonth, }) {
+
+    let sum = 0;
+    function getSum() {
+      purchases.map((e) => sum = sum + +e.cost)
+      return sum;
+    }
 
     function handleToday() {
         if(selectedCategory !== 'Категории') {
@@ -48,7 +54,7 @@ function Statistic({data,
             setTime('Все категории за этот месяц:');
         }
     }
-    console.log(new Date().getMonth())
+
     function handleYear() {
         if(selectedCategory !== 'Категории') {
             let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
@@ -165,7 +171,7 @@ function Statistic({data,
             <Button onClick={handleSearch}>Найти</Button>
             
             <Result>
-                {time}
+                {time} <b>{getSum()}<span>&#8381;</span></b>
             </Result>
         </div>
         
