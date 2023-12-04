@@ -1,3 +1,28 @@
-body {
-    background-image: url(https://catherineasquithgallery.com/uploads/posts/2021-03/1614839954_51-p-fon-dlya-shkolnogo-saita-76.jpg);
+nav {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgba(130, 130, 130, 0.7);
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-bottom: 20px;
+    border-radius: 15px;
 }
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav .active {
+    color: black;
+    font-weight: 600;
+}
+
+

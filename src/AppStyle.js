@@ -12,21 +12,22 @@ background-attachment: fixed;
 export const Container = styled.div`
 background-color: #ffffff;
 max-width: 550px;
-margin: 0 auto;
+margin: 10px auto;
 border: 2px solid rgba(0, 0, 0, 0.291);
 position: relative;
+padding: 10px;
 `;
 
 export const Title = styled.h1`
 font-family: sans-serif;
 letter-spacing: 2px;
-font-size: 36px;
+font-size: 30px;
 `;
 
 export const Input = styled.input`
     margin: 5px;
     padding: 5px;
-    border: 2px solid #05cd51;
+    border: 2px solid #298735;
     border-radius: 5px;
 
     ::placeholder {
@@ -37,35 +38,38 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
-    border: 2px solid #05cd51;
-    border-radius: 3px;
+    border: 2px solid #298735;
+    border-radius: 15px;
 	font-size: 14px;
 	font-weight: normal;
 	text-decoration: none;
 	color: #fff;
-	background-color: #05cd51;
+	background-color: #298735;
     margin: 5px;
     padding: 5px;   
 `;
 
 export const TableSpend = styled.table`
     max-width: 50%;
-	margin: 10px auto;
+	margin: 15px auto 30px auto;
 	font-size: 14px;
     border-collapse: collapse;
+    border: 1px solid black;
 `;
 
 export const Td = styled.td`
-    padding: 7px;
+    padding: 6px 7px;
+    border: 1px solid black;
 `;
 
 export const Th = styled.th`
     font-size: 16px;
     padding: 7px;
+    border: 1.5px solid black;
 `;
 
 export const Thead = styled.thead`
-    background-color: #a0e899;
+    background-color: rgb(130, 130, 130, 0.7);
 }
 `;
 
@@ -73,16 +77,16 @@ export const Button = styled.button`
     text-align: center;
 	display: inline-block;	
 	box-sizing: border-box;
-	padding:  7px 9px;
+	padding:  8px 10px;
 	margin: 5px 5px;
 	outline: none;
 	border: none;    
-	border-radius: 3px;
+	border-radius: 15px;
 	font-size: 14px; 
 	font-weight: normal;
 	text-decoration: none;
 	color: #fff;
-	background-color: ${(props) => (props.del ? 'red' : '#05cd51')};
+	background-color: ${(props) => (props.del ? 'coral' : '#298735')};
 	cursor: pointer;
 	user-select: none;
 	appearance: none;
@@ -91,6 +95,7 @@ export const Button = styled.button`
     &:hover {
         box-shadow: 0 2px 2px 0  #cfcfcf, 0 2px 5px 0  #cfcfcf;
         transition: box-shadow .18s ease-out, background .18s ease-out,color .18s ease-out;
+        background-color: ${(props) => (props.del ? 'red' : '#1a5722')};
     }
 
     &:focus-visible {
@@ -104,8 +109,7 @@ export const Button = styled.button`
 `; 
 
 export const StatisticWrapper = styled.div`
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 `;
 
 export const Period = styled.div`

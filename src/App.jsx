@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Categories from './Components/Categories/Categories';
 import Table from './Components/Table/Table';
 import Statistic from './Components/Statistic/Statistic';
+import EditCategory from './Components/EditCategory/EditCategory'
+import { Routes, Route, NavLink } from 'react-router-dom';
 import { Wrapper, Container, Title } from './AppStyle';
 import './App.css'
 import { date } from './date';
+
 
 function App() {
   
@@ -18,21 +21,31 @@ function App() {
 
   const shoppingsToday = shoppings.filter(elem => elem.date === date); // показывает только сегодняшние записи
 
+  let day = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    if (month === 9) {
+        month = 10;
+    }
+    if (month > 0 && month < 10) {
+        month = '0' + (month);
+    } 
+
   const [data, setData] = useState(shoppings);
   const [purchases, setPurchases] = useState([]);
   const [time, setTime] = useState('Все категории за все время:');
   const [selectedCategory, setSelectedCategory] = useState('Категории');
   const [activAlert, setActiveAlert] = useState(false);
   const [text, setText] = useState('');
-  const [selectedDay, setSelectedDay] = useState('День');
-  const [selectedMonth, setSelectedMonth] = useState('Месяц');
-  const [selectedYear, setSelectedYear] = useState('Год');
+  const [selectedDay, setSelectedDay] = useState(day);
+  const [selectedMonth, setSelectedMonth] = useState(month);
+  const [selectedYear, setSelectedYear] = useState(year);
   const [isMonth, setIsMonth] = useState(false);
 
   useEffect(() => {
     if (selectedCategory === 'Категории') {
       setPurchases(shoppingsToday);
-      setTime(`Все ${selectedCategory.toLowerCase()} за все сегодня:`);
+      setTime(`Все ${selectedCategory.toLowerCase()} за сегодня:`);
     } else {
       const filteretData = data.filter(elem => elem.kind === selectedCategory)
       setPurchases(filteretData);
@@ -65,14 +78,20 @@ function App() {
     setActiveAlert(false)
   };
 
-
   return (
     <Wrapper>
       <Container>
-        <Title>Жу<span>&#8381;</span>нал уч<span>&#8364;</span>та <span>&#8381;</span>а$ходов</Title>
-        <Categories data={data} 
+        <Title>Учет раcходов</Title>
+        <nav>
+          <NavLink to={"/"}>Записи</NavLink>
+          <NavLink to={"statistics"}>Статистика</NavLink>
+          <NavLink to={"categories"}>Категории</NavLink>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Categories data={data} 
                   setData={setData} 
-                  setPurchases={setPurchases} 
+                  setPurchases={setPurchases}
+                  purchases={purchases}
                   selectedCategory={selectedCategory} 
                   setSelectedCategory={setSelectedCategory}
                   time={time}
@@ -81,9 +100,10 @@ function App() {
                   setText={setText}
                   text={text}
                   setActiveAlert={setActiveAlert}
-                  activAlert={activAlert}/>
+                  activAlert={activAlert} />}>
 
-       <Statistic data={data} 
+          </Route>
+          <Route path="statistics" element={<Statistic data={data} 
                   setData={setData} 
                   purchases={purchases} 
                   setPurchases={setPurchases}
@@ -105,8 +125,26 @@ function App() {
                   getMonth={getMonth}
                   getYear={getYear}
                   isMonth={isMonth} 
-                  setIsMonth={setIsMonth}/>
+                  setIsMonth={setIsMonth}
+                  setSelectedCategory={setSelectedCategory} />}>
+          </Route>
+          <Route path="categories" element={<EditCategory data={data} 
+                  setData={setData} 
+                  setPurchases={setPurchases}
+                  purchases={purchases}
+                  selectedCategory={selectedCategory} 
+                  setSelectedCategory={setSelectedCategory}
+                  time={time}
+                  setTime={setTime}
+                  onClose={onClose}
+                  setText={setText}
+                  text={text}
+                  setActiveAlert={setActiveAlert}
+                  activAlert={activAlert} />}>
 
+          </Route>
+        </Routes>
+        
         <Table selectedCategory={selectedCategory} 
               setSelectedCategory={setSelectedCategory} 
               data={data} setData={setData} 

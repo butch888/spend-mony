@@ -1,6 +1,9 @@
 import React from "react";
 import {nanoid} from 'nanoid';
 import { Select, Button, StatisticWrapper, Period, Result } from "../../AppStyle";
+import Alt from '../Popups/Alert/Alert';
+import Selects from "../Selects/Selects";
+import { NavLink } from "react-router-dom";
 
 const arrMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -22,14 +25,15 @@ function Statistic({data,
                     selectedMonth, setSelectedMonth,
                     selectedYear, setSelectedYear,
                     getDay, getMonth, getYear,
-                    isMonth, setIsMonth, }) {
+                    setIsMonth,
+                    setSelectedCategory }) {
 
     let sum = 0;
     function getSum() {
       purchases.map((e) => sum = sum + +e.cost)
       return sum;
     }
-
+   
     function handleToday() {
         if(selectedCategory !== 'Категории') {
             let copy = data.filter(elem => getDay(elem.date) === new Date().getDate() && elem.kind === selectedCategory);
@@ -70,16 +74,16 @@ function Statistic({data,
     function handleAllTime() {
         if(selectedCategory === 'Категории') {
             setPurchases(data);
-            setSelectedMonth('Месяц');
-            setSelectedYear('Год');
-            setSelectedDay('День');
+            setSelectedMonth(month);
+            setSelectedYear(year);
+            setSelectedDay(day);
             setTime('Все категории за все время:')
         } else {
             let copy = data.filter(elem => elem.kind === selectedCategory);
             setPurchases(copy);
-            setSelectedMonth('Месяц');
-            setSelectedYear('Год');
-            setSelectedDay('День');
+            setSelectedMonth(month);
+            setSelectedYear(year);
+            setSelectedDay(day);
             setTime(`Категория "${selectedCategory}" за все время:`)
         }
     }
@@ -125,10 +129,24 @@ function Statistic({data,
         setTime('');
     }
 
+    let day = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    if (month === 9) {
+        month = 10;
+    }
+    if (month > 0 && month < 10) {
+        month = '0' + (month);
+    } 
+    
+
     return (
         <div>
+            {activAlert ? <Alt onClose={onClose} text={text}/> : ''}
+
+            <Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} ></Selects>
+
             <StatisticWrapper>
-                <h3>Статистика</h3>
                 <Button onClick={handleToday}>Сегодня</Button>
                 <Button onClick={handleMonth}>Этот месяц</Button>
                 <Button onClick={handleYear}>Этот год</Button>

@@ -8,6 +8,11 @@
 //   {id: 7, date: "03.09.2021", cost: "2500", designation: "АИ-100", kind: "Топливо"},
 // ];
 
-export const arrCategories = ['Продукты', 'Топливо', 'Развлечения', 'Ремонт'];
+let category = localStorage.getItem('category');
+    if (category === null) {
+        localStorage.setItem('category', JSON.stringify(['Продукты', 'Топливо', 'Развлечения', 'Ремонт']));
+    }
+    let strCategories = localStorage.getItem('category');
+    export const arrCategories = JSON.parse(strCategories)
 
   // export default shoppings;
