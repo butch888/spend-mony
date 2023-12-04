@@ -83,12 +83,12 @@ function App() {
       <Container>
         <Title>Учет раcходов</Title>
         <nav>
-          <NavLink to={"/"}>Записи</NavLink>
+          <NavLink to={"/spend-mony/"}>Записи</NavLink>
           <NavLink to={"statistics"}>Статистика</NavLink>
           <NavLink to={"categories"}>Категории</NavLink>
         </nav>
         <Routes>
-          <Route path="/" element={<Categories data={data} 
+          <Route path="/spend-mony/" element={<Categories data={data} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
