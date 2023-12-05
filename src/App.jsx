@@ -84,8 +84,8 @@ function App() {
         <Title>Учет раcходов</Title>
         <nav>
           <NavLink to={"/spend-mony/"}>Записи</NavLink>
-          <NavLink to={"statistics"}>Статистика</NavLink>
-          <NavLink to={"categories"}>Категории</NavLink>
+          <NavLink to={"/statistics"}>Статистика</NavLink>
+          <NavLink to={"/categories"}>Категории</NavLink>
         </nav>
         <Routes>
           <Route path="/spend-mony/" element={<Categories data={data} 
