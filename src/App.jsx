@@ -84,7 +84,7 @@ function App() {
         <Title>Учет раcходов</Title>
         <nav>
           <NavLink to={"/spend-mony/"}>Записи</NavLink>
-          <NavLink to={"/spend-mony//statistics"}>Статистика</NavLink>
+          <NavLink to={"/spend-mony/statistics"}>Статистика</NavLink>
           <NavLink to={"/spend-mony/categories"}>Категории</NavLink>
         </nav>
         <Routes>
