@@ -103,7 +103,7 @@ function App() {
                   activAlert={activAlert} />}>
 
           </Route>
-          <Route path="statistics" element={<Statistic data={data} 
+          <Route path="/spend-mony/statistics" element={<Statistic data={data} 
                   setData={setData} 
                   purchases={purchases} 
                   setPurchases={setPurchases}
@@ -128,7 +128,7 @@ function App() {
                   setIsMonth={setIsMonth}
                   setSelectedCategory={setSelectedCategory} />}>
           </Route>
-          <Route path="categories" element={<EditCategory data={data} 
+          <Route path="/spend-mony/categories" element={<EditCategory data={data} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
