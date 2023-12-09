@@ -7,7 +7,7 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import { Wrapper, Container, Title } from './AppStyle';
 import './App.css'
 import { date } from './date';
-
+import { arrCategories } from './data';
 
 function App() {
   
@@ -41,6 +41,8 @@ function App() {
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [selectedYear, setSelectedYear] = useState(year);
   const [isMonth, setIsMonth] = useState(false);
+  const [categories, setCategories] = useState(arrCategories);
+  const [lang, setLang] = useState(false)
 
   useEffect(() => {
     if (selectedCategory === 'Категории') {
@@ -77,18 +79,32 @@ function App() {
   const onClose = () => {
     setActiveAlert(false)
   };
+  
+  function handleRus() {
+    setLang(false);
+  }
+
+  function handleEng() {
+    setLang(true);
+  }
 
   return (
     <Wrapper>
       <Container>
-        <Title>Учет раcходов</Title>
+        <Title>{!lang ? 'Журнал расходов' : 'Expense journal'}</Title>
+
+        <div className='lang'>
+          <span className='rus' style={!lang ? {fontWeight: 700} : {fontWeight: 400}} onClick={handleRus}>ru</span> | 
+          <span className='eng' style={lang ? {fontWeight: 700} : {fontWeight: 400}} onClick={handleEng}> en</span>
+        </div>
+        
         <nav>
-          <NavLink to={"/spend-mony/"}>Записи</NavLink>
-          <NavLink to={"/spend-mony/statistics"}>Статистика</NavLink>
-          <NavLink to={"/spend-mony/categories"}>Категории</NavLink>
+          <NavLink to={"/spend-mony"}>{!lang ? 'Записи' : 'Spending'}</NavLink>
+          <NavLink to={"/statistics"}>{!lang ? 'Статистика' : 'Statistics'}</NavLink>
+          <NavLink to={"/categories"}>{!lang ? 'Категории' : 'Categories'}</NavLink>
         </nav>
         <Routes>
-          <Route path="/spend-mony/" element={<Categories data={data} 
+          <Route path="/spend-mony" element={<Categories data={data} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
@@ -100,10 +116,12 @@ function App() {
                   setText={setText}
                   text={text}
                   setActiveAlert={setActiveAlert}
-                  activAlert={activAlert} />}>
+                  activAlert={activAlert}
+                  categories={categories} setCategories={setCategories}
+                  lang={lang} />}>
 
           </Route>
-          <Route path="/spend-mony/statistics" element={<Statistic data={data} 
+          <Route path="/statistics" element={<Statistic data={data} 
                   setData={setData} 
                   purchases={purchases} 
                   setPurchases={setPurchases}
@@ -126,9 +144,11 @@ function App() {
                   getYear={getYear}
                   isMonth={isMonth} 
                   setIsMonth={setIsMonth}
-                  setSelectedCategory={setSelectedCategory} />}>
+                  setSelectedCategory={setSelectedCategory}
+                  categories={categories} setCategories={setCategories}
+                  lang={lang} />}>
           </Route>
-          <Route path="/spend-mony/categories" element={<EditCategory data={data} 
+          <Route path="/categories" element={<EditCategory data={data} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
@@ -140,7 +160,9 @@ function App() {
                   setText={setText}
                   text={text}
                   setActiveAlert={setActiveAlert}
-                  activAlert={activAlert} />}>
+                  activAlert={activAlert}
+                  categories={categories} setCategories={setCategories}
+                  lang={lang} />}>
 
           </Route>
         </Routes>
@@ -150,7 +172,8 @@ function App() {
               data={data} setData={setData} 
               purchases={purchases} 
               setPurchases={setPurchases}
-              setTime={setTime}/>
+              setTime={setTime}
+              lang={lang}/>
               
         </Container>
     </Wrapper>

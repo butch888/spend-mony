@@ -2,11 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { date } from '../../date';
-import { Input, Select, Button, Result } from '../../AppStyle';
+import { Input, Button, Result } from '../../AppStyle';
 import Alt from '../Popups/Alert/Alert';
-import { arrCategories } from '../../data';
+import Selects from '../Selects/Selects';
 
-function Categories({ selectedCategory, setSelectedCategory, data, setData, purchases, onClose, setText, text, setActiveAlert, activAlert, time }) {
+function Categories({ selectedCategory, setSelectedCategory, data, setData, purchases, onClose, setText, text, setActiveAlert, activAlert, time, categories, lang}) {
 
     const [inpValueName, setInpValueName] = useState('');
     const [inpValueCost, setInpValueCost] = useState('');
@@ -14,13 +14,13 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, purc
     const handleAddPurchase = () => {
         if (selectedCategory === 'Категории') {
             setActiveAlert(true);
-            setText('Для добавления новой записи, выберите "Категорию!"');
+            setText(!lang ? 'Выберите "Категорию!"' : 'Select category!');
         } else if(inpValueName === '') {
             setActiveAlert(true);
-            setText('Для добавления новой записи, введите название покупки!');
+            setText(!lang ? 'Введите название покупки!' : 'Enter title!');
         } else if(inpValueCost === '') {
             setActiveAlert(true);
-            setText('Для добавления новой записи, введите стоимость покупки!');
+            setText(!lang ? 'Введите стоимость покупки!' : 'Enter Cost!');
         } else {
             let copy = [...data];
             copy.unshift({id: nanoid(5), date: date, designation: inpValueName, kind: selectedCategory, cost: inpValueCost})
@@ -35,10 +35,6 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, purc
         }
     };
 
-    function handleSelectedCategory(e) {
-        setSelectedCategory(e.target.value);
-    }
-
     let sum = 0;
     function getSum() {
       purchases.map((e) => sum = sum + +e.cost)
@@ -50,22 +46,15 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, purc
             {activAlert ? <Alt onClose={onClose} 
                                 text={text}/> : ''}
 
-            <Select value={selectedCategory} title='Выбрать категорию' onChange={handleSelectedCategory}>
-                <option value='Категории'>Категории</option>
-                {arrCategories.map((category) => (
-                    <option key={nanoid(7)} value={category}>
-                        {category}
-                    </option>
-                ))}
-            </Select><br/>
+            <Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang}></Selects>
 
-            <Input placeholder='название' value={inpValueName} onChange={e => setInpValueName(e.target.value)}/>
-            <Input type='number' value={inpValueCost} placeholder='цена' onChange={e => setInpValueCost(e.target.value)}/><br/>
+            <Input placeholder={!lang ? 'название' : 'title'} value={inpValueName} onChange={e => setInpValueName(e.target.value)}/>
+            <Input type='number' value={inpValueCost} placeholder={!lang ? 'цена' : 'cost'} onChange={e => setInpValueCost(e.target.value)}/><br/>
 
-            <Button title='Добавить новую запись' onClick={handleAddPurchase} style={{padding: '10px 50px'}}>Добавить запись</Button>
+            <Button title='Добавить новую запись' onClick={handleAddPurchase} style={{padding: '10px 50px'}}>{!lang ? 'Добавить запись' : 'Add note'}</Button>
 
             <Result>
-                {time} <b>{getSum()}<span>&#8381;</span></b>
+            {time} <br/> <b>{getSum()}</b>
             </Result>
 
         </div>

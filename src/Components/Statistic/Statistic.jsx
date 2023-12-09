@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {nanoid} from 'nanoid';
 import { Select, Button, StatisticWrapper, Period, Result } from "../../AppStyle";
-import Alt from '../Popups/Alert/Alert';
 import Selects from "../Selects/Selects";
 import { date } from "../../date";
 
@@ -18,15 +17,16 @@ function Statistic({data,
                     purchases, setPurchases, 
                     selectedCategory, 
                     time, setTime, 
-                    onClose, 
-                    activAlert, setActiveAlert, 
-                    text, setText,
+                    setActiveAlert, 
+                    setText,
                     selectedDay, setSelectedDay,
                     selectedMonth, setSelectedMonth,
                     selectedYear, setSelectedYear,
                     getDay, getMonth, getYear,
                     setIsMonth,
-                    setSelectedCategory }) {
+                    setSelectedCategory,
+                    categories,
+                    lang }) {
 
     const [index , setIndex] = useState('')         
 
@@ -106,7 +106,8 @@ function Statistic({data,
         setSelectedYear(e.target.value);
     }
 
-    function handleSearch() {
+    function handleSearch(e) {
+        setIndex(e.target.id);
         if(selectedDay !== 'День' && selectedMonth !== 'Месяц' && selectedYear !== 'Год') {
             if(selectedCategory !== 'Категории') {
                 let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear && selectedCategory === elem.kind);
@@ -132,7 +133,13 @@ function Statistic({data,
             setActiveAlert(true);
             setText('Выберите год!');
         }
-        setTime(date);
+
+        if(selectedDay === day && selectedMonth === month && selectedYear === year) {
+            setTime(date);
+        } else {
+            setTime(`${selectedDay}.${selectedMonth}.${selectedYear}`)
+        }
+        
     }
 
     let day = new Date().getDate();
@@ -148,20 +155,19 @@ function Statistic({data,
     
     return (
         <div>
-            {activAlert ? <Alt onClose={onClose} text={text}/> : ''}
 
-            <Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} ></Selects>
+            <Selects selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang} ></Selects>
 
             <StatisticWrapper>
-                <Button id="btnToday" style={index === 'btnToday' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleToday}>Сегодня</Button>
-                <Button id="btnMonth" style={index === 'btnMonth' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleMonth}>Этот месяц</Button>
-                <Button id="btnYear" style={index === 'btnYear' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleYear}>Этот год</Button>
-                <Button id="btnAllTime" style={index === 'btnAllTime' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleAllTime}>За все время</Button>
+                <Button id="btnToday" style={index === 'btnToday' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleToday}>{!lang ? 'Сегодня' : 'Today'}</Button>
+                <Button id="btnMonth" style={index === 'btnMonth' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleMonth}>{!lang ? 'Этот месяц' : 'Current month'}</Button>
+                <Button id="btnYear" style={index === 'btnYear' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleYear}>{!lang ? 'Этот год' : 'Current year'}</Button>
+                <Button id="btnAllTime" style={index === 'btnAllTime' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleAllTime}>{!lang ? 'За все время' : 'All time'}</Button>
             </StatisticWrapper>
 
             <Period>
                 <div>
-                    <Select value={selectedDay} onChange={handleSelectedDay}>
+                    <Select slct='true' value={selectedDay} onChange={handleSelectedDay}>
                         <option>День</option>
                         {arrDays.map((day) => (
                             <option key={nanoid(4)} value={day}>
@@ -171,7 +177,7 @@ function Statistic({data,
                     </Select>
                 </div>
                 <div>
-                    <Select value={selectedMonth} onChange={handleSelectedMonth}>
+                    <Select slct='true' value={selectedMonth} onChange={handleSelectedMonth}>
                         <option>Месяц</option>
                         {arrMonth.map((month) => (
                             <option key={nanoid(4)} value={month}>
@@ -181,7 +187,7 @@ function Statistic({data,
                     </Select>
                 </div>
                 <div>
-                    <Select value={selectedYear} onChange={handleSelectedYear}>
+                    <Select slct='true' value={selectedYear} onChange={handleSelectedYear}>
                         <option>Год</option>
                         {arrYears.map((year) => (
                             <option key={nanoid(4)} value={year}>
@@ -192,10 +198,10 @@ function Statistic({data,
                 </div>
              </Period>
 
-            <Button onClick={handleSearch}>Найти</Button>
+            <Button id="btnSearch" style={index === 'btnSearch' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}}  onClick={handleSearch}>{!lang ? 'Найти' : 'Search'}</Button>
             
             <Result>
-                {time} <b>{getSum()}<span>&#8381;</span></b>
+            {!lang ? time : 'All categories today'}<br/><b>{getSum()}<span>&#8381;</span></b>
             </Result>
         </div>
         

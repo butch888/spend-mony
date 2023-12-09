@@ -3,10 +3,6 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
 text-align: center;
-background-repeat: repeat;
-background-position: center;
-// background-image: url(https://catherineasquithgallery.com/uploads/posts/2021-03/1614839954_51-p-fon-dlya-shkolnogo-saita-76.jpg);
-background-attachment: fixed;
 `;
 
 export const Container = styled.div`
@@ -14,6 +10,7 @@ background-color: #ffffff;
 max-width: 550px;
 margin: 10px auto;
 border: 2px solid rgba(0, 0, 0, 0.291);
+border-radius: 10px;
 position: relative;
 padding: 10px;
 `;
@@ -38,13 +35,12 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
-    border: 2px solid #298735;
     border-radius: 15px;
 	font-size: 14px;
 	font-weight: normal;
 	text-decoration: none;
 	color: #fff;
-	background-color: #298735;
+	background-color: ${(props) => props.slct ? 'rgba(130, 130, 130, 0.7)' : '#1a5722'};
     margin: 5px;
     padding: 5px;   
 `;
@@ -119,6 +115,11 @@ export const Period = styled.div`
 `;
 
 export const Result = styled.div`
-    margin-top: 30px;
+    max-width: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
 }
 `;

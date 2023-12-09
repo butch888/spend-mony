@@ -1,9 +1,8 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import { Select } from '../../AppStyle';
-import { arrCategories } from '../../data';
 
-function Selects({ selectedCategory, setSelectedCategory,}) {
+function Selects({ selectedCategory, setSelectedCategory, categories, lang}) {
 
     function handleSelectedCategory(e) {
         setSelectedCategory(e.target.value);
@@ -12,8 +11,8 @@ function Selects({ selectedCategory, setSelectedCategory,}) {
     return (
         <div>
             <Select value={selectedCategory} title='Выбрать категорию' onChange={handleSelectedCategory}>
-                <option value='Категории'>Категории</option>
-                {arrCategories.map((category) => (
+                <option value='Категории'>{!lang ? 'Категории' : 'Categories'}</option>
+                {categories.map((category) => (
                     <option key={nanoid(7)} value={category}>
                         {category}
                     </option>

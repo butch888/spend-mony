@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DeleteFilled } from '@ant-design/icons';
 import { TableSpend, Td, Th, Thead, Button } from "../../AppStyle";
 
-function EditableCell({ value, onChange, isEditable, cost, designation }) {
+function EditableCell({ value, onChange, isEditable, cost, designation, lang }) {
     const [editing, setEditing] = useState(false);
     const [text, setText] = useState(value);
   
@@ -38,7 +38,7 @@ function EditableCell({ value, onChange, isEditable, cost, designation }) {
     }
 }
 
-function Table({ purchases, data, setData }) {
+function Table({ purchases, data, setData, lang }) {
 
     const handleCellChange = (id, key, value) => {
         const newProds = data.map((purchase) => {
@@ -77,11 +77,11 @@ function Table({ purchases, data, setData }) {
             <TableSpend>
                 <Thead>
                     <tr>
-                        <Th>Дата</Th>
-                        <Th>Категория</Th>
-                        <Th>Название</Th>
-                        <Th>Стоимость</Th>
-                        <Th><DeleteOutlined /></Th>
+                        <Th>{!lang ? 'Дата' : 'Date'}</Th>
+                        <Th>{!lang ? 'Категория' : 'Category'}</Th>
+                        <Th>{!lang ? 'Название' : 'Title'}</Th>
+                        <Th>{!lang ? 'Стоимость' : 'Cost'}</Th>
+                        <Th><DeleteFilled /></Th>
                     </tr>
                 </Thead>
                 <tbody>

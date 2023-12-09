@@ -12,6 +12,7 @@ nav {
     gap: 35px;
     margin-bottom: 20px;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 nav a {
@@ -27,6 +28,27 @@ nav a:hover {
 nav .active {
     color: black;
     font-weight: 600;
+}
+
+.lang {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 15px;
+    padding: 4px 10px;
+    background-color: rgb(217, 217, 223);
+}
+
+.lang span {
+    cursor: pointer;
+}
+
+.lang .rus:hover {
+    text-shadow: -1px 1px black;
+}
+
+.lang .eng:hover {
+    text-shadow: -1px 1px black;
 }
 
 

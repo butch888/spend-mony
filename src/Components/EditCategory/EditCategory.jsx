@@ -1,17 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { PlusOutlined, MinusOutlined, EditOutlined } from '@ant-design/icons';
-import { Select, Button, Result } from '../../AppStyle';
+import { Button, Result } from '../../AppStyle';
 import Alt from '../Popups/Alert/Alert';
 import PromptAdd from '../Popups/PromptAdd/PromptAdd';
 import Confirm from '../Popups/Confirm/Confirm';
 import PromptEdit from '../Popups/PromptEdit/PromptEdit';
-import { arrCategories } from '../../data';
+import Selects from '../Selects/Selects';
 
-function EditCategory({ selectedCategory, setSelectedCategory, data, setData, setPurchases, purchases, onClose, setText, text, setActiveAlert, activAlert, time }) {
+function EditCategory({ selectedCategory, setSelectedCategory, data, setData, setPurchases, purchases, onClose, setText, text, setActiveAlert, activAlert, time, categories, setCategories, lang }) {
 
-    const [categories, setCategories] = useState(arrCategories);
     const [activPromptAdd, setActivePromptAdd] = useState(false);
     const [activPromptEdit, setActivePromptEdit] = useState(false);
     const [activConfirm, setActiveConfirm] = useState(false);
@@ -110,10 +108,6 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
         setInpValueAddCategory('');
     }
 
-    function handleSelectedCategory(e) {
-        setSelectedCategory(e.target.value);
-    }
-
     function handleCancel() {
         setActivePromptAdd(false);
         setInpValueAddCategory('');
@@ -145,21 +139,14 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
                                             inpValueAddCategory={inpValueAddCategory} 
                                             setInpValueAddCategory={setInpValueAddCategory}/> : ''}
 
-            <Select value={selectedCategory} title='Выбрать категорию' onChange={handleSelectedCategory}>
-                <option value='Категории'>Категории</option>
-                {categories.map((category) => (
-                    <option key={nanoid(7)} value={category}>
-                        {category}
-                    </option>
-                ))}
-            </Select><br/>
+<Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang></Selects>
 
             <Button title='Удалить категорию' onClick={handleDelCategory}><MinusOutlined /></Button>
             <Button title='Редактировать категорию' onClick={handleEditCategory}><EditOutlined /></Button>
             <Button title='Добавить категорию' onClick={addCategory}><PlusOutlined /></Button>
 
             <Result>
-                {time} <b>{getSum()}<span>&#8381;</span></b>
+                {!lang ? time : 'All categories today'}<br/><b>{getSum()}<span>&#8381;</span></b>
             </Result>
 
         </div>
