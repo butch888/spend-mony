@@ -1,14 +1,17 @@
 import React from 'react';
 import { Alert, Space } from 'antd';
-import { AltWrapper } from './AlertStyleComponent';
+
 
 const Alt = ({text, onClose}) => (
-  <AltWrapper>
+ 
     <Space
     direction="vertical"
     style={{
       width: '400px',
-      border: 'none'
+      position: 'absolute',
+      left: '50%',
+      marginLeft: '-200px',
+      marginTop: '100px'
     }}
   >
     <Alert
@@ -18,6 +21,6 @@ const Alt = ({text, onClose}) => (
       onClose={onClose}
     />
   </Space>
-  </AltWrapper>
+ 
 );
 export default Alt;

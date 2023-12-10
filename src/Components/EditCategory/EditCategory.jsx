@@ -31,7 +31,7 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             if (categories[i] === newCategory) {
                 isCategoryExist = true;
                 setActiveAlert(true);
-                setText('Такая категория уже существует!');
+                setText(!lang ? 'Такая категория уже существует!' : 'This category already exists!');
                 setActivePromptAdd(false);
                 setSelectedCategory(newCategory);
                 setInpValueAddCategory('');
@@ -46,14 +46,14 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             setActiveAlert(true);
             setActivePromptAdd(false);
             setInpValueAddCategory('');
-            setText(`Вы добавили категорию "${newCategory}"`);
+            setText(!lang ? `Вы добавили категорию "${newCategory}"` : `Category "${newCategory}" added: `);
         }
     }
 
     const handleDelCategory = () => {
-        if (selectedCategory === 'Категории') {
+        if (selectedCategory === 'Категории' || selectedCategory === 'Categories') {
             setActiveAlert(true);
-            setText('Чтобы удалить категорию, выберите категорию, которую хотите удалить!');
+            setText(!lang ? 'Выберите категорию для удаления!' : 'Select category to delete!');
         } else {
             setActiveConfirm(true);
         }
@@ -65,7 +65,7 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
         localStorage.setItem('category', JSON.stringify(copy));
         setSelectedCategory('Категории');
         setActiveAlert(true);
-        setText(`Категория "${selectedCategory}" удалена!`);
+        setText(!lang ? `Категория "${selectedCategory}" удалена!` : `Category "${selectedCategory}" deleted!`);
         let copyPurchases = data.filter(purch => purch.kind !== selectedCategory);
         setData(copyPurchases);
         setActiveConfirm(false);
@@ -77,9 +77,9 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
     }
 
     function handleEditCategory() {
-        if (selectedCategory === 'Категории') {
+        if (selectedCategory === 'Категории' || selectedCategory === 'Categories') {
             setActiveAlert(true);
-            setText('Чтобы изменить категорию, выберите категорию!');
+            setText(!lang ? 'Чтобы изменить категорию, выберите категорию!' : 'Select a category to edit!');
         } else {
             setActivePromptEdit(true);
             if (inpValueAddCategory !== '' && activPromptEdit === true) {
@@ -127,26 +127,36 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             {activPromptAdd ? <PromptAdd handleCancel={handleCancel} 
                                         handleAddCategory={handleAddCategory} 
                                         inpValueAddCategory={inpValueAddCategory} 
-                                        setInpValueAddCategory={setInpValueAddCategory}/> : ''}
+                                        setInpValueAddCategory={setInpValueAddCategory}
+                                        lang={lang}/> : ''}
 
             {activConfirm ? <Confirm delCategory={delCategory} 
                                     selectedCategory={selectedCategory} 
-                                    handleNotDelCategory={handleNotDelCategory}/> : ''}
+                                    handleNotDelCategory={handleNotDelCategory}
+                                    lang={lang}/> : ''}
 
             {activPromptEdit ? <PromptEdit handleEditCategory={handleEditCategory} 
                                             selectedCategory={selectedCategory} 
                                             handleCancelEditCategory={handleCancelEditCategory} 
                                             inpValueAddCategory={inpValueAddCategory} 
-                                            setInpValueAddCategory={setInpValueAddCategory}/> : ''}
+                                            setInpValueAddCategory={setInpValueAddCategory}
+                                            lang={lang}/> : ''}
 
-<Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang></Selects>
+<Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang}></Selects>
 
             <Button title='Удалить категорию' onClick={handleDelCategory}><MinusOutlined /></Button>
             <Button title='Редактировать категорию' onClick={handleEditCategory}><EditOutlined /></Button>
             <Button title='Добавить категорию' onClick={addCategory}><PlusOutlined /></Button>
 
             <Result>
-                {!lang ? time : 'All categories today'}<br/><b>{getSum()}<span>&#8381;</span></b>
+                {!lang ? time : 'All categories for today'} <br/> <b 
+                                    style={{width: '100px',
+                                    margin: '0 auto',
+                                    border: '1px solid black',
+                                    borderRadius: '15px', 
+                                    padding: '3px 8px',
+                                    display: 'block',
+                                    marginTop: '6px'}}>{getSum()}<span>&#8381;</span></b>
             </Result>
 
         </div>

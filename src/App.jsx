@@ -10,7 +10,7 @@ import { date } from './date';
 import { arrCategories } from './data';
 
 function App() {
-  
+ 
   let spends = localStorage.getItem('spends');
 
   if(spends === null) {
@@ -33,7 +33,7 @@ function App() {
 
   const [data, setData] = useState(shoppings);
   const [purchases, setPurchases] = useState([]);
-  const [time, setTime] = useState('Все категории за все время:');
+  const [time, setTime] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Категории');
   const [activAlert, setActiveAlert] = useState(false);
   const [text, setText] = useState('');
@@ -42,18 +42,66 @@ function App() {
   const [selectedYear, setSelectedYear] = useState(year);
   const [isMonth, setIsMonth] = useState(false);
   const [categories, setCategories] = useState(arrCategories);
-  const [lang, setLang] = useState(false)
+  const [lang, setLang] = useState(false);
+  const [index , setIndex] = useState('btnToday');
 
   useEffect(() => {
-    if (selectedCategory === 'Категории') {
+    if (selectedCategory === 'Категории' && index === "btnToday") {
       setPurchases(shoppingsToday);
-      setTime(`Все ${selectedCategory.toLowerCase()} за сегодня:`);
-    } else {
-      const filteretData = data.filter(elem => elem.kind === selectedCategory)
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за сегодня:` : `All ${selectedCategory.toLowerCase()} for today:`);
+    } else if (selectedCategory === 'Categories' && index === "btnToday") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за сегодня:` : `All ${selectedCategory.toLowerCase()} for today:`);
+
+
+    } else if (selectedCategory === 'Категории' && index === "btnMonth") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
+    } else if (selectedCategory === 'Categories' && index === "btnMonth") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
+
+
+    } else if (selectedCategory === 'Категории' && index === "btnYear") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот год:` : `All ${selectedCategory.toLowerCase()} for current year:`);
+    } else if (selectedCategory === 'Categories' && index === "btnYear") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот год:` : `All ${selectedCategory.toLowerCase()} for current year:`);
+
+
+    } else if (selectedCategory === 'Категории' && index === "btnAllTime") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за все время:` : `All ${selectedCategory.toLowerCase()} for all time:`);
+    } else if (selectedCategory === 'Categories' && index === "btnAllTime") {
+      setPurchases(shoppingsToday);
+      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за все время:` : `All ${selectedCategory.toLowerCase()} for all time:`);
+
+
+    } else if (index === "btnToday") {
+      const filteretData = data.filter(elem => elem.kind === selectedCategory && elem.date === date )
       setPurchases(filteretData);
-      setTime(`Категория "${selectedCategory}" за все время:`);
+      setTime(!lang ? `Категория "${selectedCategory}" за сегодня:` : `Category "${selectedCategory}" for today:`);
+
+
+    } else if (index === "btnMonth") {
+      const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
+      setPurchases(filteretData);
+      setTime(!lang ? `Категория "${selectedCategory}" за этот месяц:` : `Category "${selectedCategory}" for current month:`);
+
+
+    } else if (index === "btnYear") {
+      const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
+      setPurchases(filteretData);
+      setTime(!lang ? `Категория "${selectedCategory}" за этот год:` : `Category "${selectedCategory}" for current year:`);
+
+
+    } else if (index === "btnAllTime") {
+      const filteretData = data.filter(elem => elem.kind === selectedCategory);
+      setPurchases(filteretData);
+      setTime(!lang ? `Категория "${selectedCategory}" за все время:` : `Category "${selectedCategory}" for all time:`);
     }
-  },[data, selectedCategory]);
+  },[data, selectedCategory, lang]);
 
   function getDay(str) {
     const dotIndex = str.indexOf('.');
@@ -82,10 +130,14 @@ function App() {
   
   function handleRus() {
     setLang(false);
+    setSelectedCategory('Категории');
+    setIndex('btnToday')
   }
 
   function handleEng() {
     setLang(true);
+    setSelectedCategory('Categories');
+    setIndex('btnToday')
   }
 
   return (
@@ -99,12 +151,12 @@ function App() {
         </div>
         
         <nav>
-          <NavLink to={"/spend-mony"}>{!lang ? 'Записи' : 'Spending'}</NavLink>
+          <NavLink to={"/"}>{!lang ? 'Записи' : 'Spending'}</NavLink>
           <NavLink to={"/statistics"}>{!lang ? 'Статистика' : 'Statistics'}</NavLink>
           <NavLink to={"/categories"}>{!lang ? 'Категории' : 'Categories'}</NavLink>
         </nav>
         <Routes>
-          <Route path="/spend-mony" element={<Categories data={data} 
+          <Route path="/" element={<Categories data={data} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
@@ -118,7 +170,8 @@ function App() {
                   setActiveAlert={setActiveAlert}
                   activAlert={activAlert}
                   categories={categories} setCategories={setCategories}
-                  lang={lang} />}>
+                  lang={lang} 
+                  setIndex={setIndex} />}>
 
           </Route>
           <Route path="/statistics" element={<Statistic data={data} 
@@ -146,7 +199,8 @@ function App() {
                   setIsMonth={setIsMonth}
                   setSelectedCategory={setSelectedCategory}
                   categories={categories} setCategories={setCategories}
-                  lang={lang} />}>
+                  lang={lang}
+                  index={index} setIndex={setIndex} />}>
           </Route>
           <Route path="/categories" element={<EditCategory data={data} 
                   setData={setData} 

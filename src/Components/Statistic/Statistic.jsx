@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {nanoid} from 'nanoid';
 import { Select, Button, StatisticWrapper, Period, Result } from "../../AppStyle";
 import Selects from "../Selects/Selects";
@@ -14,21 +13,17 @@ for (let i = 2021; i <= 2032; i++) {
 const arrDays = Array.from(Array(31).keys(), num => num + 1);
 
 function Statistic({data, 
-                    purchases, setPurchases, 
-                    selectedCategory, 
-                    time, setTime, 
-                    setActiveAlert, 
-                    setText,
+                    purchases, setPurchases,  
+                    time, setTime,
                     selectedDay, setSelectedDay,
                     selectedMonth, setSelectedMonth,
                     selectedYear, setSelectedYear,
                     getDay, getMonth, getYear,
                     setIsMonth,
-                    setSelectedCategory,
+                    selectedCategory, setSelectedCategory,
                     categories,
-                    lang }) {
-
-    const [index , setIndex] = useState('')         
+                    lang,
+                    index, setIndex }) {        
 
     let sum = 0;
     function getSum() {
@@ -38,100 +33,105 @@ function Statistic({data,
    
     function handleToday(e) {
         setIndex(e.target.id);
-        if(selectedCategory !== 'Категории') {
-            let copy = data.filter(elem => getDay(elem.date) === new Date().getDate() && elem.kind === selectedCategory);
-            setPurchases(copy);
-            setTime(`Категория "${selectedCategory}" за сегодня:`);
-        } else {
+        if (selectedCategory === 'Категории'){
             let copy = data.filter(elem => getDay(elem.date) === new Date().getDate());
             setPurchases(copy);
             setTime('Все категории за сегодня:');
+        } else if (selectedCategory === 'Categories'){
+            let copy = data.filter(elem => getDay(elem.date) === new Date().getDate());
+            setPurchases(copy);
+            setTime('All categories for today:');
+        } else {
+            let copy = data.filter(elem => getDay(elem.date) === new Date().getDate() && elem.kind === selectedCategory);
+            setPurchases(copy);
+            setTime(! lang ? `Категория "${selectedCategory}" за сегодня:` : `Category "${selectedCategory}" for today:`);
         } 
     }
-
+ 
     function handleMonth(e) {
         setIndex(e.target.id);
         setIsMonth(true);
-        if(selectedCategory !== 'Категории') {
+        if(selectedCategory !== 'Категории' && selectedCategory !== 'Categories') {
             let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
             setPurchases(copy);
-            setTime(`Категория "${selectedCategory}" за этот месяц:`);
+            setTime(!lang ? `Категория "${selectedCategory}" за этот месяц:` : `Category "${selectedCategory}" for current month:`);
         } else {
             let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear())
             setPurchases(copy);
-            setTime('Все категории за этот месяц:');
+            setTime(!lang ? 'Все категории за этот месяц:' : 'All categories for current month:');
         }
     }
 
     function handleYear(e) {
         setIndex(e.target.id);
-        if(selectedCategory !== 'Категории') {
-            let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
-            setPurchases(copy);
-            setTime(`Категория "${selectedCategory}" за этот год:`);
-        } else {
+        if (selectedCategory === 'Категории') {
             let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear())
             setPurchases(copy);
             setTime('Все категории за этот год:');
-        }
+        } else if (selectedCategory === 'Categories') {
+            let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear())
+            setPurchases(copy);
+            setTime('All categories for current year:');
+        } else {
+            let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
+            setPurchases(copy);
+            setTime(!lang ? `Категория "${selectedCategory}" за этот год:` : `Category "${selectedCategory}" for current year:`);
+        } 
     }
 
     function handleAllTime(e) {
         setIndex(e.target.id);
         if(selectedCategory === 'Категории') {
             setPurchases(data);
-            setSelectedMonth(month);
-            setSelectedYear(year);
-            setSelectedDay(day);
+            // setSelectedMonth(month);
+            // setSelectedYear(year);
+            // setSelectedDay(day);
             setTime('Все категории за все время:')
+        } else if(selectedCategory === 'Categories') {
+            setPurchases(data);
+            // setSelectedMonth(month);
+            // setSelectedYear(year);
+            // setSelectedDay(day);
+            setTime('All categories for all time:')
         } else {
             let copy = data.filter(elem => elem.kind === selectedCategory);
             setPurchases(copy);
-            setSelectedMonth(month);
-            setSelectedYear(year);
-            setSelectedDay(day);
-            setTime(`Категория "${selectedCategory}" за все время:`)
+            // setSelectedMonth(month);
+            // setSelectedYear(year);
+            // setSelectedDay(day);
+            setTime(!lang ? `Категория "${selectedCategory}" за все время:` : `Category "${selectedCategory}" for all time:`)
         }
     }
 
     function handleSelectedDay(e) {
         setSelectedDay(e.target.value);
+        if (index === "btnSearch") {
+            setIndex('');
+        }
     }
 
     function handleSelectedMonth(e) {
         setSelectedMonth(e.target.value);
+        if (index === "btnSearch") {
+            setIndex('');
+        }
     }
 
     function handleSelectedYear(e) {
         setSelectedYear(e.target.value);
+        if (index === "btnSearch") {
+            setIndex('');
+        }
     }
 
     function handleSearch(e) {
         setIndex(e.target.id);
-        if(selectedDay !== 'День' && selectedMonth !== 'Месяц' && selectedYear !== 'Год') {
-            if(selectedCategory !== 'Категории') {
-                let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear && selectedCategory === elem.kind);
-                setPurchases(copy);
-            } else {
-                let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear);
-                setPurchases(copy);
-            }
-        } else if(selectedMonth !== 'Месяц' && selectedYear !== 'Год') {
-            let copy = data.filter(elem => getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear);
+        if(selectedCategory === 'Категории' || selectedCategory === 'Categories') {
+            let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear);
             setPurchases(copy);
-        } else if(selectedYear !== 'Год') {
-            let copy = data.filter(elem => getYear(elem.date) === +selectedYear && elem.kind === selectedCategory);
+        } else {
+            let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear && selectedCategory === elem.kind);
             setPurchases(copy);
-            if (selectedCategory === 'Категории') {
-                let copy = data.filter(elem => getYear(elem.date) === +selectedYear);
-                setPurchases(copy);
-            }
-        } else if(selectedMonth === 'Месяц') {
-            setActiveAlert(true);
-            setText('Выберите месяц!');
-        } else if(selectedYear === 'Год') {
-            setActiveAlert(true);
-            setText('Выберите год!');
         }
 
         if(selectedDay === day && selectedMonth === month && selectedYear === year) {
@@ -139,7 +139,6 @@ function Statistic({data,
         } else {
             setTime(`${selectedDay}.${selectedMonth}.${selectedYear}`)
         }
-        
     }
 
     let day = new Date().getDate();
@@ -152,23 +151,23 @@ function Statistic({data,
         month = '0' + (month);
     } 
     
-    
-    return (
-        <div>
+    const bgCol = '#014707';
 
-            <Selects selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang} ></Selects>
+    return (
+        <div> 
+            <Selects selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang} index={index} setIndex={setIndex} ></Selects>
 
             <StatisticWrapper>
-                <Button id="btnToday" style={index === 'btnToday' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleToday}>{!lang ? 'Сегодня' : 'Today'}</Button>
-                <Button id="btnMonth" style={index === 'btnMonth' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleMonth}>{!lang ? 'Этот месяц' : 'Current month'}</Button>
-                <Button id="btnYear" style={index === 'btnYear' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleYear}>{!lang ? 'Этот год' : 'Current year'}</Button>
-                <Button id="btnAllTime" style={index === 'btnAllTime' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}} onClick={handleAllTime}>{!lang ? 'За все время' : 'All time'}</Button>
+                <Button id="btnToday" style={index === 'btnToday' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleToday}>{!lang ? 'Сегодня' : 'Today'}</Button>
+                <Button id="btnMonth" style={index === 'btnMonth' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleMonth}>{!lang ? 'Этот месяц' : 'Current month'}</Button>
+                <Button id="btnYear" style={index === 'btnYear' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleYear}>{!lang ? 'Этот год' : 'Current year'}</Button>
+                <Button id="btnAllTime" style={index === 'btnAllTime' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleAllTime}>{!lang ? 'За все время' : 'All time'}</Button>
             </StatisticWrapper>
 
             <Period>
                 <div>
                     <Select slct='true' value={selectedDay} onChange={handleSelectedDay}>
-                        <option>День</option>
+                        <option>{selectedDay}</option>
                         {arrDays.map((day) => (
                             <option key={nanoid(4)} value={day}>
                                 {day}
@@ -178,7 +177,7 @@ function Statistic({data,
                 </div>
                 <div>
                     <Select slct='true' value={selectedMonth} onChange={handleSelectedMonth}>
-                        <option>Месяц</option>
+                        <option>{selectedMonth}</option>
                         {arrMonth.map((month) => (
                             <option key={nanoid(4)} value={month}>
                                 {month}
@@ -188,7 +187,7 @@ function Statistic({data,
                 </div>
                 <div>
                     <Select slct='true' value={selectedYear} onChange={handleSelectedYear}>
-                        <option>Год</option>
+                        <option>{selectedYear}</option>
                         {arrYears.map((year) => (
                             <option key={nanoid(4)} value={year}>
                                 {year}
@@ -198,10 +197,16 @@ function Statistic({data,
                 </div>
              </Period>
 
-            <Button id="btnSearch" style={index === 'btnSearch' ? {backgroundColor: '#1a5722'} : {backgroundColor: ''}}  onClick={handleSearch}>{!lang ? 'Найти' : 'Search'}</Button>
+            <Button id="btnSearch" style={index === 'btnSearch' ? {backgroundColor: bgCol} : {backgroundColor: ''}}  onClick={handleSearch}>{!lang ? 'Найти' : 'Search'}</Button>
             
             <Result>
-            {!lang ? time : 'All categories today'}<br/><b>{getSum()}<span>&#8381;</span></b>
+            {time} <br/> <b style={{width: '100px',
+                                    margin: '0 auto',
+                                    border: '1px solid black',
+                                    borderRadius: '15px', 
+                                    padding: '3px 8px',
+                                    display: 'block',
+                                    marginTop: '6px'}}>{getSum()}<span>&#8381;</span></b>
             </Result>
         </div>
         
