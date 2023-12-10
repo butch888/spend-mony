@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/spend-mony/static/css/main.b2824bd8.css",
-    "main.js": "/spend-mony/static/js/main.35b87048.js",
+    "main.css": "/spend-mony/static/css/main.4dc1cc0d.css",
+    "main.js": "/spend-mony/static/js/main.f04242b8.js",
     "static/js/787.3498f92a.chunk.js": "/spend-mony/static/js/787.3498f92a.chunk.js",
     "static/media/ground.jpeg": "/spend-mony/static/media/ground.434df02f5e3b75a3cb8b.jpeg",
     "index.html": "/spend-mony/index.html",
-    "main.b2824bd8.css.map": "/spend-mony/static/css/main.b2824bd8.css.map",
-    "main.35b87048.js.map": "/spend-mony/static/js/main.35b87048.js.map",
+    "main.4dc1cc0d.css.map": "/spend-mony/static/css/main.4dc1cc0d.css.map",
+    "main.f04242b8.js.map": "/spend-mony/static/js/main.f04242b8.js.map",
     "787.3498f92a.chunk.js.map": "/spend-mony/static/js/787.3498f92a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2824bd8.css",
-    "static/js/main.35b87048.js"
+    "static/css/main.4dc1cc0d.css",
+    "static/js/main.f04242b8.js"
   ]
 }
