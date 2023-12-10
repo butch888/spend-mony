@@ -51,7 +51,7 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, purc
             <Input placeholder={!lang ? 'название' : 'title'} value={inpValueName} onChange={e => setInpValueName(e.target.value)}/>
             <Input type='number' value={inpValueCost} placeholder={!lang ? 'цена' : 'cost'} onChange={e => setInpValueCost(e.target.value)}/><br/>
 
-            <Button title='Добавить новую запись' onClick={handleAddPurchase} style={{padding: '10px 50px'}}>{!lang ? 'Добавить запись' : 'Add note'}</Button>
+            <Button add='true' title='Добавить новую запись' onClick={handleAddPurchase} style={{padding: '10px 50px'}}>{!lang ? 'Добавить запись' : 'Add note'}</Button>
 
             <Result>
             {/* {!lang ? time : 'All categories for today'}<br/><b>{getSum()}<span>&#8381;</span></b> */}

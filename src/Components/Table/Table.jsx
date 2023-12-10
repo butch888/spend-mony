@@ -66,7 +66,7 @@ function Table({ purchases, data, setData, lang }) {
             <Td><EditableCell value={purchase.cost} cost={purchase.cost} onChange={(value) => handleCellChange(purchase.id, "cost", value)} isEditable={true} /></Td>
             <Td>
                 <Button del='true' onClick={() => handleDelPurchase(purchase.id)}>
-                    <DeleteOutlined />
+                    <DeleteOutlined style={{color: 'black'}}/>
                 </Button>
             </Td>
       </tr>
