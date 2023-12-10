@@ -62,7 +62,7 @@ export const TableSpend = styled.table`
     border-collapse: collapse;
     border: 1px solid black;
     @media(max-width: 460px) {
-        font-size: 10px;
+        font-size: 12px;
     }
 `;
 
@@ -70,7 +70,7 @@ export const Td = styled.td`
     padding: 6px 7px;
     border: 1px solid black;
     @media(max-width: 460px) {
-        padding: 0px 4px;
+        padding: 2px 4px;
     }
 `;
 
@@ -80,7 +80,7 @@ export const Th = styled.th`
     border: 1.5px solid black;
     @media(max-width: 460px) {
         padding: 2px 4px;
-        font-size: 12px;
+        font-size: 14px;
     }
 `;
 
@@ -139,7 +139,7 @@ export const Period = styled.div`
 `;
 
 export const Result = styled.div`
-    max-width: 150px;
+    max-width: 400px;
     margin: 0 auto;
     margin-top: 20px;
     padding: 10px;
