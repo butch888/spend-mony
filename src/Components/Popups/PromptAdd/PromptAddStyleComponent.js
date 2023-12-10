@@ -10,4 +10,8 @@ position: absolute;
 left: 14%;
 top: 110px;
 background-color: #fffbe6;
+
+@media(max-width: 460px) {
+    width: 300px; 
+}
 `;
