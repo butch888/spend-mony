@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { PlusOutlined, MinusOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Result } from '../../AppStyle';
+import { Button } from '../../AppStyle';
 import Alt from '../Popups/Alert/Alert';
 import PromptAdd from '../Popups/PromptAdd/PromptAdd';
 import Confirm from '../Popups/Confirm/Confirm';
@@ -112,12 +112,6 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
         setActivePromptAdd(false);
         setInpValueAddCategory('');
     }
-
-    let sum = 0;
-    function getSum() {
-      purchases.map((e) => sum = sum + +e.cost)
-      return sum;
-    }
     
     return (
         <div>
@@ -142,22 +136,13 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
                                             setInpValueAddCategory={setInpValueAddCategory}
                                             lang={lang}/> : ''}
 
-<Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang}></Selects>
+            <Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang}></Selects>
 
-            <Button title='Удалить категорию' onClick={handleDelCategory}><MinusOutlined /></Button>
-            <Button title='Редактировать категорию' onClick={handleEditCategory}><EditOutlined /></Button>
-            <Button title='Добавить категорию' onClick={addCategory}><PlusOutlined /></Button>
-
-            <Result>
-                {!lang ? time : 'All categories for today'} <br/> <b 
-                                    style={{width: '100px',
-                                    margin: '0 auto',
-                                    border: '1px solid black',
-                                    borderRadius: '15px', 
-                                    padding: '3px 8px',
-                                    display: 'block',
-                                    marginTop: '6px'}}>{getSum()}<span>&#8381;</span></b>
-            </Result>
+            <div style={{marginBottom: '10px'}}>
+                <Button title='Удалить категорию' onClick={handleDelCategory}><MinusOutlined /></Button>
+                <Button title='Редактировать категорию' onClick={handleEditCategory}><EditOutlined /></Button>
+                <Button title='Добавить категорию' onClick={addCategory}><PlusOutlined /></Button>
+            </div>
 
         </div>
     )

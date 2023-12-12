@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Categories from './Components/Categories/Categories';
-import Table from './Components/Table/Table';
 import Statistic from './Components/Statistic/Statistic';
 import EditCategory from './Components/EditCategory/EditCategory'
 import { Routes, Route, NavLink } from 'react-router-dom';
@@ -160,10 +159,8 @@ function App() {
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
-                  selectedCategory={selectedCategory} 
-                  setSelectedCategory={setSelectedCategory}
-                  time={time}
-                  setTime={setTime}
+                  selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
+                  time={time} setTime={setTime}
                   onClose={onClose}
                   setText={setText}
                   text={text}
@@ -220,16 +217,8 @@ function App() {
 
           </Route>
         </Routes>
-        
-        <Table selectedCategory={selectedCategory} 
-              setSelectedCategory={setSelectedCategory} 
-              data={data} setData={setData} 
-              purchases={purchases} 
-              setPurchases={setPurchases}
-              setTime={setTime}
-              lang={lang}/>
               
-        </Container>
+      </Container>
     </Wrapper>
   );
 }

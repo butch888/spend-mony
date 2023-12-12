@@ -2,6 +2,7 @@ import {nanoid} from 'nanoid';
 import { Select, Button, StatisticWrapper, Period, Result } from "../../AppStyle";
 import Selects from "../Selects/Selects";
 import { date } from "../../date";
+import Table from '../Table/Table';
 
 const arrMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -12,7 +13,7 @@ for (let i = 2021; i <= 2032; i++) {
 
 const arrDays = Array.from(Array(31).keys(), num => num + 1);
 
-function Statistic({data, 
+function Statistic({data, setData,
                     purchases, setPurchases,  
                     time, setTime,
                     selectedDay, setSelectedDay,
@@ -83,22 +84,13 @@ function Statistic({data,
         setIndex(e.target.id);
         if(selectedCategory === 'Категории') {
             setPurchases(data);
-            // setSelectedMonth(month);
-            // setSelectedYear(year);
-            // setSelectedDay(day);
             setTime('Все категории за все время:')
         } else if(selectedCategory === 'Categories') {
             setPurchases(data);
-            // setSelectedMonth(month);
-            // setSelectedYear(year);
-            // setSelectedDay(day);
             setTime('All categories for all time:')
         } else {
             let copy = data.filter(elem => elem.kind === selectedCategory);
             setPurchases(copy);
-            // setSelectedMonth(month);
-            // setSelectedYear(year);
-            // setSelectedDay(day);
             setTime(!lang ? `Категория "${selectedCategory}" за все время:` : `Category "${selectedCategory}" for all time:`)
         }
     }
@@ -208,6 +200,14 @@ function Statistic({data,
                                     display: 'block',
                                     marginTop: '6px'}}>{getSum()}<span>&#8381;</span></b>
             </Result>
+
+            <Table selectedCategory={selectedCategory} 
+              setSelectedCategory={setSelectedCategory} 
+              data={data} setData={setData} 
+              purchases={purchases} 
+              setPurchases={setPurchases}
+              setTime={setTime}
+              lang={lang}/>
         </div>
         
         
