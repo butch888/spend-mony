@@ -1,6 +1,6 @@
 export const messages = {
     selectCategory: {
-        ru: 'Выберите "Категорию!"',
+        ru: 'Выберите Категорию!',
         en: 'Select category!'
     },
     enterTitle: {
@@ -9,7 +9,7 @@ export const messages = {
     },
     enterCost: {
         ru: 'Введите стоимость покупки!',
-        en: 'Enter Cost!'
+        en: 'Enter cost!'
     },
     addPurchases: {
         ru: 'Запись успешно добавлена.',
@@ -32,3 +32,11 @@ export const messages = {
         en: 'Add note'
     }
 };
+
+export const getTranslate = (lang , message) => {
+    if (lang) {
+        return message.en;
+    } else {
+        return message.ru;
+    }
+}

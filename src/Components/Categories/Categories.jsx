@@ -6,23 +6,22 @@ import { Input, Button, Result } from '../../AppStyle';
 import Alt from '../Popups/Alert/Alert';
 import Selects from '../Selects/Selects';
 import Table from '../Table/Table';
-import { messages } from '../../messages';
+import { messages, getTranslate } from '../../messages';
 
 function Categories({ selectedCategory, setSelectedCategory, data, setData, purchases, setPurchases, onClose, setText, text, setActiveAlert, activAlert, time, setTime, categories, lang, setIndex}) {
 
     const [inpValueName, setInpValueName] = useState('');
     const [inpValueCost, setInpValueCost] = useState('');
-
     const handleAddPurchase = () => {
         if (selectedCategory === messages.category.ru || selectedCategory === messages.category.en) {
             setActiveAlert(true);
-            setText(!lang ? messages.selectCategory.ru : messages.selectCategory.en);
+            setText(getTranslate(lang, messages.selectCategory));
         } else if(inpValueName === '') {
             setActiveAlert(true);
-            setText(!lang ? messages.enterTitle.ru : messages.enterTitle.en);
+            setText(getTranslate(lang, messages.enterTitle));
         } else if(inpValueCost === '') {
             setActiveAlert(true);
-            setText(!lang ? messages.enterCost.ru : messages.enterCost.en);
+            setText(getTranslate(lang, messages.enterCost));
         } else {
             let copy = [...data];
             copy.unshift({id: nanoid(5), date: date, designation: inpValueName, kind: selectedCategory, cost: inpValueCost})
@@ -33,7 +32,7 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, purc
             setSelectedCategory('Категории');
             onClose();
             setActiveAlert(true);
-            setText(!lang ? messages.addPurchases.ru : messages.addPurchases.en);
+            setText(getTranslate(lang, messages.addPurchases));
         }
     };
 
@@ -53,7 +52,7 @@ function Categories({ selectedCategory, setSelectedCategory, data, setData, purc
             <Input placeholder={!lang ? messages.inpPlaceholdetTitle.ru : messages.inpPlaceholdetTitle.en} value={inpValueName} onChange={e => setInpValueName(e.target.value)}/>
             <Input type='number' value={inpValueCost} placeholder={!lang ? messages.inpPlaceholdetCost.ru : messages.inpPlaceholdetCost.en} onChange={e => setInpValueCost(e.target.value)}/><br/>
 
-            <Button add='true' onClick={handleAddPurchase} style={{padding: '10px 50px'}}>{!lang ? messages.btnAddPurchase.ru : messages.btnAddPurchase.en}</Button>
+            <Button add='true' onClick={handleAddPurchase} style={{padding: '10px 50px'}}>{getTranslate(lang, messages.btnAddPurchase)}</Button>
 
             <Result>
                 {time}<br/>

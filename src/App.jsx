@@ -54,26 +54,31 @@ function App() {
 
 
     } else if (selectedCategory === 'Категории' && index === "btnMonth") {
-      setPurchases(shoppingsToday);
+      const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
+      console.log(filteretData)
+      setPurchases(filteretData);
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
     } else if (selectedCategory === 'Categories' && index === "btnMonth") {
-      setPurchases(shoppingsToday);
+      const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
+      console.log(filteretData)
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
 
 
     } else if (selectedCategory === 'Категории' && index === "btnYear") {
-      setPurchases(shoppingsToday);
+      const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear());
+      setPurchases(filteretData);
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот год:` : `All ${selectedCategory.toLowerCase()} for current year:`);
     } else if (selectedCategory === 'Categories' && index === "btnYear") {
-      setPurchases(shoppingsToday);
+      const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear());
+      setPurchases(filteretData);
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот год:` : `All ${selectedCategory.toLowerCase()} for current year:`);
 
 
     } else if (selectedCategory === 'Категории' && index === "btnAllTime") {
-      setPurchases(shoppingsToday);
+      setPurchases(data);
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за все время:` : `All ${selectedCategory.toLowerCase()} for all time:`);
     } else if (selectedCategory === 'Categories' && index === "btnAllTime") {
-      setPurchases(shoppingsToday);
+      setPurchases(data);
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за все время:` : `All ${selectedCategory.toLowerCase()} for all time:`);
 
 
