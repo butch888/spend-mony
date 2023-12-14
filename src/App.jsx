@@ -44,66 +44,52 @@ function App() {
   const [categories, setCategories] = useState(arrCategories);
   const [lang, setLang] = useState('ru');
   const [index , setIndex] = useState('btnToday');
-
+    
   useEffect(() => {
-    if (selectedCategory === 'Категории' && index === "btnToday") {
+    if (selectedCategory === getTranslate(lang, messages.category) && index === "btnToday") {
       setPurchases(shoppingsToday);
-      setTime(`Все ${selectedCategory.toLowerCase()} за сегодня:`);
-    } else if (selectedCategory === 'Categories' && index === "btnToday") {
-      setPurchases(shoppingsToday);
-      setTime(`All ${selectedCategory.toLowerCase()} for today:`);
+      setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.today));
 
 
-    } else if (selectedCategory === 'Категории' && index === "btnMonth") {
+    } else if (selectedCategory === getTranslate(lang, messages.category) && index === "btnMonth") {
       const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
       setPurchases(filteretData);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
-    } else if (selectedCategory === 'Categories' && index === "btnMonth") {
-      const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
-      console.log(filteretData)
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
+      setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.month));
 
 
-    } else if (selectedCategory === 'Категории' && index === "btnYear") {
+    } else if (selectedCategory === getTranslate(lang, messages.category) && index === "btnYear") {
       const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear());
       setPurchases(filteretData);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот год:` : `All ${selectedCategory.toLowerCase()} for current year:`);
-    } else if (selectedCategory === 'Categories' && index === "btnYear") {
-      const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear());
-      setPurchases(filteretData);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот год:` : `All ${selectedCategory.toLowerCase()} for current year:`);
+      setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.year));
+    
 
-
-    } else if (selectedCategory === 'Категории' && index === "btnAllTime") {
+    } else if (selectedCategory === getTranslate(lang, messages.category) && index === "btnAllTime") {
       setPurchases(data);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за все время:` : `All ${selectedCategory.toLowerCase()} for all time:`);
-    } else if (selectedCategory === 'Categories' && index === "btnAllTime") {
-      setPurchases(data);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за все время:` : `All ${selectedCategory.toLowerCase()} for all time:`);
+      setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.allTime));
 
 
     } else if (index === "btnToday") {
       const filteretData = data.filter(elem => elem.kind === selectedCategory && elem.date === date )
       setPurchases(filteretData);
-      setTime(!lang ? `Категория "${selectedCategory}" за сегодня:` : `Category "${selectedCategory}" for today:`);
+      setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.today));
 
 
     } else if (index === "btnMonth") {
       const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
       setPurchases(filteretData);
-      setTime(!lang ? `Категория "${selectedCategory}" за этот месяц:` : `Category "${selectedCategory}" for current month:`);
+      setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.month));
 
 
     } else if (index === "btnYear") {
       const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
       setPurchases(filteretData);
-      setTime(!lang ? `Категория "${selectedCategory}" за этот год:` : `Category "${selectedCategory}" for current year:`);
+      setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.year));
 
 
     } else if (index === "btnAllTime") {
       const filteretData = data.filter(elem => elem.kind === selectedCategory);
       setPurchases(filteretData);
-      setTime(!lang ? `Категория "${selectedCategory}" за все время:` : `Category "${selectedCategory}" for all time:`);
+      setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.allTime));
     }
   },[data, selectedCategory, lang]);
 

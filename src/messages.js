@@ -26,7 +26,19 @@ export const messages = {
     },
     month: {
         ru: ' за этот месяц:',
-        en: ' for current month'
+        en: ' for current month:'
+    },
+    year: {
+        ru: ' за этот год:',
+        en: ' for current year:'
+    },
+    allTime: {
+        ru: ' за все время:',
+        en: ' for all time:'
+    },
+    nowCategory: {
+        ru: 'Категория ',
+        en: 'Category '
     },
     // end App
 

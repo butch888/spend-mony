@@ -35,65 +35,54 @@ function Statistic({data, setData,
    
     function handleToday(e) {
         setIndex(e.target.id);
-        if (selectedCategory === 'Категории'){
+        if (selectedCategory === getTranslate(lang, messages.category)){
             let copy = data.filter(elem => getDay(elem.date) === new Date().getDate());
             setPurchases(copy);
-            setTime('Все категории за сегодня:');
-        } else if (selectedCategory === 'Categories'){
-            let copy = data.filter(elem => getDay(elem.date) === new Date().getDate());
-            setPurchases(copy);
-            setTime('All categories for today:');
+            setTime(getTranslate(lang, messages.period) + getTranslate(lang, messages.category).toLowerCase() + getTranslate(lang, messages.today));
         } else {
             let copy = data.filter(elem => getDay(elem.date) === new Date().getDate() && elem.kind === selectedCategory);
             setPurchases(copy);
-            setTime(! lang ? `Категория "${selectedCategory}" за сегодня:` : `Category "${selectedCategory}" for today:`);
+            setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.today));
         } 
     }
  
     function handleMonth(e) {
         setIndex(e.target.id);
         setIsMonth(true);
-        if(selectedCategory !== 'Категории') {
+        if (selectedCategory === getTranslate(lang, messages.category)){
+            let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
+            setPurchases(copy);
+            setTime(getTranslate(lang, messages.period) + getTranslate(lang, messages.category).toLowerCase() + getTranslate(lang, messages.month));
+        } else {
             let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
             setPurchases(copy);
-            setTime(!lang ? `Категория "${selectedCategory}" за этот месяц:` : `Category "${selectedCategory}" for current month:`);
-        } else {
-            let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear())
-            setPurchases(copy);
-            setTime(lang === 'ru' ? 'Все категории за этот месяц:' : 'All categories for current month:');
-        }
+            setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.month));
+        } 
     }
 
     function handleYear(e) {
         setIndex(e.target.id);
-        if (selectedCategory === 'Категории') {
-            let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear())
+        if (selectedCategory === getTranslate(lang, messages.category)){
+            let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear());
             setPurchases(copy);
-            setTime('Все категории за этот год:');
-        } else if (selectedCategory === 'Categories') {
-            let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear())
-            setPurchases(copy);
-            setTime('All categories for current year:');
+            setTime(getTranslate(lang, messages.period) + getTranslate(lang, messages.category).toLowerCase() + getTranslate(lang, messages.year));
         } else {
             let copy = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
             setPurchases(copy);
-            setTime(!lang ? `Категория "${selectedCategory}" за этот год:` : `Category "${selectedCategory}" for current year:`);
+            setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.year));
         } 
     }
 
     function handleAllTime(e) {
         setIndex(e.target.id);
-        if(selectedCategory === 'Категории') {
+        if (selectedCategory === getTranslate(lang, messages.category)){
             setPurchases(data);
-            setTime('Все категории за все время:')
-        } else if(selectedCategory === 'Categories') {
-            setPurchases(data);
-            setTime('All categories for all time:')
+            setTime(getTranslate(lang, messages.period) + getTranslate(lang, messages.category).toLowerCase() + getTranslate(lang, messages.allTime));
         } else {
             let copy = data.filter(elem => elem.kind === selectedCategory);
             setPurchases(copy);
-            setTime(!lang ? `Категория "${selectedCategory}" за все время:` : `Category "${selectedCategory}" for all time:`)
-        }
+            setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.allTime));
+        } 
     }
 
     function handleSelectedDay(e) {
