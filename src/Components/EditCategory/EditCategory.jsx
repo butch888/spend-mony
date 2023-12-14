@@ -7,6 +7,7 @@ import PromptAdd from '../Popups/PromptAdd/PromptAdd';
 import Confirm from '../Popups/Confirm/Confirm';
 import PromptEdit from '../Popups/PromptEdit/PromptEdit';
 import Selects from '../Selects/Selects';
+import { getTranslate, messages } from '../../messages';
 
 function EditCategory({ selectedCategory, setSelectedCategory, data, setData, setPurchases, purchases, onClose, setText, text, setActiveAlert, activAlert, time, categories, setCategories, lang }) {
 
@@ -31,7 +32,7 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             if (categories[i] === newCategory) {
                 isCategoryExist = true;
                 setActiveAlert(true);
-                setText(!lang ? 'Такая категория уже существует!' : 'This category already exists!');
+                setText(getTranslate(lang, messages.categoryExist));
                 setActivePromptAdd(false);
                 setSelectedCategory(newCategory);
                 setInpValueAddCategory('');
@@ -46,14 +47,14 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             setActiveAlert(true);
             setActivePromptAdd(false);
             setInpValueAddCategory('');
-            setText(!lang ? `Вы добавили категорию "${newCategory}"` : `Category "${newCategory}" added: `);
+            setText(getTranslate(lang, messages. categoryAdded) + `"${newCategory}"`);
         }
     }
 
     const handleDelCategory = () => {
-        if (selectedCategory === 'Категории' || selectedCategory === 'Categories') {
+        if (selectedCategory === getTranslate(lang, messages.category)) {
             setActiveAlert(true);
-            setText(!lang ? 'Выберите категорию для удаления!' : 'Select category to delete!');
+            setText(getTranslate(lang, messages.categoryDel));
         } else {
             setActiveConfirm(true);
         }
@@ -63,9 +64,9 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
         let copy = categories.filter(elem => elem !== selectedCategory);
         setCategories(copy);
         localStorage.setItem('category', JSON.stringify(copy));
-        setSelectedCategory('Категории');
+        setSelectedCategory(getTranslate(lang, messages.category));
         setActiveAlert(true);
-        setText(!lang ? `Категория "${selectedCategory}" удалена!` : `Category "${selectedCategory}" deleted!`);
+        setText(getTranslate(lang, messages.category) + `"${selectedCategory}"` + getTranslate(lang, messages.delCategory));
         let copyPurchases = data.filter(purch => purch.kind !== selectedCategory);
         setData(copyPurchases);
         setActiveConfirm(false);
@@ -77,11 +78,12 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
     }
 
     function handleEditCategory() {
-        if (selectedCategory === 'Категории' || selectedCategory === 'Categories') {
+        if (selectedCategory === getTranslate(lang, messages.category)) {
             setActiveAlert(true);
-            setText(!lang ? 'Чтобы изменить категорию, выберите категорию!' : 'Select a category to edit!');
+            setText(getTranslate(lang, messages.categoryEdit));
         } else {
             setActivePromptEdit(true);
+            setInpValueAddCategory(selectedCategory)
             if (inpValueAddCategory !== '' && activPromptEdit === true) {
                 const newCategory = inpValueAddCategory.trim()[0].toUpperCase() + inpValueAddCategory.slice(1, inpValueAddCategory.length);
                 let copy = [...categories];
@@ -98,7 +100,6 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
                 });
                 setPurchases(copyPurchases.filter(purch => purch.kind === newCategory));
                 setActivePromptEdit(false);
-                setInpValueAddCategory('');
             }
         }
     }
@@ -139,9 +140,9 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             <Selects time={time} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang}></Selects>
 
             <div style={{marginBottom: '10px'}}>
-                <Button title='Удалить категорию' onClick={handleDelCategory}><MinusOutlined /></Button>
-                <Button title='Редактировать категорию' onClick={handleEditCategory}><EditOutlined /></Button>
-                <Button title='Добавить категорию' onClick={addCategory}><PlusOutlined /></Button>
+                <Button onClick={handleDelCategory}><MinusOutlined /></Button>
+                <Button onClick={handleEditCategory}><EditOutlined /></Button>
+                <Button onClick={addCategory}><PlusOutlined /></Button>
             </div>
 
         </div>

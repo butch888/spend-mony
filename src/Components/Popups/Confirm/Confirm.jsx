@@ -1,15 +1,17 @@
 import React from 'react';
 import { Button } from '../../../AppStyle';
 import { ConfirmWrapper } from './ConfirmStyleComponent';
+import { getTranslate, messages } from '../../../messages';
+
 
 const Confirm = ({ selectedCategory, handleNotDelCategory, delCategory, lang }) => (
     
     <ConfirmWrapper>
         <p>
-            {!lang ? `Вы уверены, что хотите удалить категорию "${selectedCategory}"?` : `Are you sure you want to delete the category "${selectedCategory}"?`}
+            {getTranslate(lang, messages.confirmDelCategory) + `"${selectedCategory}"?`}
         </p>
-        <Button onClick={handleNotDelCategory}>{!lang ? 'Отмена' : 'Cancel'}</Button>
-        <Button onClick={delCategory}>Да</Button><br/><br/>
+        <Button onClick={handleNotDelCategory}>{getTranslate(lang, messages.btnConfCancel)}</Button>
+        <Button onClick={delCategory}>{getTranslate(lang, messages.btnConfYes)}</Button><br/><br/>
     </ConfirmWrapper>
 );
 

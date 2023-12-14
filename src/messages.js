@@ -76,6 +76,7 @@ export const messages = {
         en: 'Add note',
     },
     // end Category
+
     // start Statistic
     btnToday: {
         ru: 'Сегодня',
@@ -98,6 +99,66 @@ export const messages = {
         en: 'Search'
     },
     // end Statistic
+
+    //startEditCategory
+    categoryExist: {
+        ru: 'Такая категория уже существует!',
+        en: 'This category already exists!'
+    },
+    categoryAdded: {
+        ru: 'Вы добавили категорию ',
+        en: 'Added category '
+    },
+    categoryDel: {
+        ru: 'Выберите категорию для удаления!',
+        en: 'Select category to delete!'
+    },
+    delCategory: {
+        ru: 'Удалена!',
+        en: 'deleted!'
+    },
+    categoryEdit: {
+        ru: 'Чтобы изменить категорию, выберите категорию!',
+        en: 'Select a category to edit!'
+    },
+    //endvEditCategory
+
+    //start Confirm
+    confirmDelCategory: {
+        ru: 'Вы уверены, что хотите удалить категорию ',
+        en: 'Are you sure you want to delete the category '
+    },
+    btnConfCancel: {
+        ru: 'Отмена',
+        en: 'Cancel'
+    },
+    btnConfYes: {
+        ru: 'Да',
+        en: 'No'
+    },
+    //end Confirm
+
+    //start PromptEdit
+    btnEdit: {
+        ru: 'Изменить',
+        en: 'Edit'
+    },
+    promptCategoryEdit: {
+        ru: 'Измените название категории',
+        en: 'Edit category'
+    },
+    //end PromptEdit
+
+    //start PromptAdd
+    promptCategoryAdd: {
+        ru: 'Введите название категории',
+        en: 'Enter category name'
+    },
+    btnPromptAdd: {
+        ru: 'Добавить',
+        en: 'Add'
+    },
+    //end PromptAdd
 };
 
 export const getTranslate = (lang , message) => {
