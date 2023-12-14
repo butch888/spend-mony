@@ -1,4 +1,36 @@
 export const messages = {
+    // start App
+    appTitle: {
+        ru: 'Журнал расходов',
+        en: 'Expense journal'
+    },
+    appNavSpend: {
+        ru: 'Записи',
+        en: 'Spending'
+    },
+    appNavStatistic: {
+        ru: 'Статистика',
+        en: 'Statistics'
+    },
+    appNavCategory: {
+        ru: 'Категории',
+        en: 'Categories'
+    },
+    period: {
+        ru: 'Все ',
+        en: 'All '
+    },
+    today: {
+        ru: ' за сегодня:',
+        en: ' for today:'
+    },
+    month: {
+        ru: ' за этот месяц:',
+        en: ' for current month'
+    },
+    // end App
+
+    // start Category
     selectCategory: {
         ru: 'Выберите Категорию!',
         en: 'Select category!'
@@ -29,14 +61,33 @@ export const messages = {
     },
     btnAddPurchase: {
         ru: 'Добавить запись',
-        en: 'Add note'
-    }
+        en: 'Add note',
+    },
+    // end Category
+    // start Statistic
+    btnToday: {
+        ru: 'Сегодня',
+        en: 'Today'
+    },
+    btnMonth: {
+        ru: 'Этот месяц',
+        en: 'Current month'
+    },
+    btnYear: {
+        ru: 'Этот год',
+        en: 'Current year'
+    },
+    btnAllTime: {
+        ru: 'За все время',
+        en: 'All time'
+    },
+    btnSearch: {
+        ru: 'Найти',
+        en: 'Search'
+    },
+    // end Statistic
 };
 
 export const getTranslate = (lang , message) => {
-    if (lang) {
-        return message.en;
-    } else {
-        return message.ru;
-    }
+    return message[lang]
 }

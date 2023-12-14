@@ -7,6 +7,7 @@ import { Wrapper, Container, Title } from './AppStyle';
 import './App.css'
 import { date } from './date';
 import { arrCategories } from './data';
+import { getTranslate, messages } from './messages';
 
 function App() {
  
@@ -41,21 +42,20 @@ function App() {
   const [selectedYear, setSelectedYear] = useState(year);
   const [isMonth, setIsMonth] = useState(false);
   const [categories, setCategories] = useState(arrCategories);
-  const [lang, setLang] = useState(false);
+  const [lang, setLang] = useState('ru');
   const [index , setIndex] = useState('btnToday');
 
   useEffect(() => {
     if (selectedCategory === 'Категории' && index === "btnToday") {
       setPurchases(shoppingsToday);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за сегодня:` : `All ${selectedCategory.toLowerCase()} for today:`);
+      setTime(`Все ${selectedCategory.toLowerCase()} за сегодня:`);
     } else if (selectedCategory === 'Categories' && index === "btnToday") {
       setPurchases(shoppingsToday);
-      setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за сегодня:` : `All ${selectedCategory.toLowerCase()} for today:`);
+      setTime(`All ${selectedCategory.toLowerCase()} for today:`);
 
 
     } else if (selectedCategory === 'Категории' && index === "btnMonth") {
       const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
-      console.log(filteretData)
       setPurchases(filteretData);
       setTime(!lang ? `Все ${selectedCategory.toLowerCase()} за этот месяц:` : `All ${selectedCategory.toLowerCase()} for current month:`);
     } else if (selectedCategory === 'Categories' && index === "btnMonth") {
@@ -133,13 +133,13 @@ function App() {
   };
   
   function handleRus() {
-    setLang(false);
+    setLang('ru');
     setSelectedCategory('Категории');
     setIndex('btnToday')
   }
 
   function handleEng() {
-    setLang(true);
+    setLang('en');
     setSelectedCategory('Categories');
     setIndex('btnToday')
   }
@@ -147,17 +147,17 @@ function App() {
   return (
     <Wrapper>
       <Container>
-        <Title>{!lang ? 'Журнал расходов' : 'Expense journal'}</Title>
+        <Title>{getTranslate(lang, messages.appTitle)}</Title>
 
         <div className='lang'>
-          <span className='rus' style={!lang ? {fontWeight: 700} : {fontWeight: 400}} onClick={handleRus}>ru</span> | 
-          <span className='eng' style={lang ? {fontWeight: 700} : {fontWeight: 400}} onClick={handleEng}> en</span>
+          <span className='rus' style={lang === 'ru' ? {fontWeight: 700} : {fontWeight: 400}} onClick={handleRus}>ru</span> | 
+          <span className='eng' style={lang === 'en' ? {fontWeight: 700} : {fontWeight: 400}} onClick={handleEng}> en</span>
         </div>
         
         <nav>
-          <NavLink to={"/"}>{!lang ? 'Записи' : 'Spending'}</NavLink>
-          <NavLink to={"/statistics"}>{!lang ? 'Статистика' : 'Statistics'}</NavLink>
-          <NavLink to={"/categories"}>{!lang ? 'Категории' : 'Categories'}</NavLink>
+          <NavLink to={"/"}>{getTranslate(lang, messages.appNavSpend)}</NavLink>
+          <NavLink to={"/statistics"}>{getTranslate(lang, messages.appNavStatistic)}</NavLink>
+          <NavLink to={"/categories"}>{getTranslate(lang, messages.appNavCategory)}</NavLink>
         </nav>
         <Routes>
           <Route path="/" element={<Categories data={data} 

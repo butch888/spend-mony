@@ -3,6 +3,7 @@ import { Select, Button, StatisticWrapper, Period, Result } from "../../AppStyle
 import Selects from "../Selects/Selects";
 import { date } from "../../date";
 import Table from '../Table/Table';
+import { getTranslate, messages } from '../../messages';
 
 const arrMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -52,14 +53,14 @@ function Statistic({data, setData,
     function handleMonth(e) {
         setIndex(e.target.id);
         setIsMonth(true);
-        if(selectedCategory !== 'Категории' && selectedCategory !== 'Categories') {
+        if(selectedCategory !== 'Категории') {
             let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
             setPurchases(copy);
             setTime(!lang ? `Категория "${selectedCategory}" за этот месяц:` : `Category "${selectedCategory}" for current month:`);
         } else {
             let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear())
             setPurchases(copy);
-            setTime(!lang ? 'Все категории за этот месяц:' : 'All categories for current month:');
+            setTime(lang === 'ru' ? 'Все категории за этот месяц:' : 'All categories for current month:');
         }
     }
 
@@ -150,10 +151,10 @@ function Statistic({data, setData,
             <Selects selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} lang={lang} index={index} setIndex={setIndex} ></Selects>
 
             <StatisticWrapper>
-                <Button id="btnToday" style={index === 'btnToday' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleToday}>{!lang ? 'Сегодня' : 'Today'}</Button>
-                <Button id="btnMonth" style={index === 'btnMonth' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleMonth}>{!lang ? 'Этот месяц' : 'Current month'}</Button>
-                <Button id="btnYear" style={index === 'btnYear' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleYear}>{!lang ? 'Этот год' : 'Current year'}</Button>
-                <Button id="btnAllTime" style={index === 'btnAllTime' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleAllTime}>{!lang ? 'За все время' : 'All time'}</Button>
+                <Button id="btnToday" style={index === 'btnToday' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleToday}>{getTranslate(lang, messages.btnToday)}</Button>
+                <Button id="btnMonth" style={index === 'btnMonth' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleMonth}>{getTranslate(lang, messages.btnMonth)}</Button>
+                <Button id="btnYear" style={index === 'btnYear' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleYear}>{getTranslate(lang, messages.btnYear)}</Button>
+                <Button id="btnAllTime" style={index === 'btnAllTime' ? {backgroundColor: bgCol} : {backgroundColor: ''}} onClick={handleAllTime}>{getTranslate(lang, messages.btnAllTime)}</Button>
             </StatisticWrapper>
 
             <Period>
@@ -189,7 +190,7 @@ function Statistic({data, setData,
                 </div>
              </Period>
 
-            <Button id="btnSearch" style={index === 'btnSearch' ? {backgroundColor: bgCol} : {backgroundColor: ''}}  onClick={handleSearch}>{!lang ? 'Найти' : 'Search'}</Button>
+            <Button id="btnSearch" style={index === 'btnSearch' ? {backgroundColor: bgCol} : {backgroundColor: ''}}  onClick={handleSearch}>{getTranslate(lang, messages.btnSearch)}</Button>
             
             <Result>
             {time} <br/> <b style={{width: '100px',

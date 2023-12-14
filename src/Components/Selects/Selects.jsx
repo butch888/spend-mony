@@ -1,6 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import { Select } from '../../AppStyle';
+import { getTranslate, messages } from '../../messages';
 
 function Selects({ selectedCategory, setSelectedCategory, categories, lang, index, setIndex}) {
 
@@ -14,8 +15,8 @@ function Selects({ selectedCategory, setSelectedCategory, categories, lang, inde
     
     return (
         <div>
-            <Select value={selectedCategory} title='Выбрать категорию' onChange={handleSelectedCategory}>
-                <option value={!lang ? 'Категории' : 'Categories'}>{!lang ? 'Категории' : 'Categories'}</option>
+            <Select value={selectedCategory} onChange={handleSelectedCategory}>
+                <option value={getTranslate(lang, messages.appNavCategory)}>{getTranslate(lang, messages.category)}</option>
                 {categories.map((category) => (
                     <option key={nanoid(7)} value={category}>
                         {category}
