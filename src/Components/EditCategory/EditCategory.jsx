@@ -47,7 +47,7 @@ function EditCategory({ selectedCategory, setSelectedCategory, data, setData, se
             setActiveAlert(true);
             setActivePromptAdd(false);
             setInpValueAddCategory('');
-            setText(getTranslate(lang, messages. categoryAdded) + `"${newCategory}"`);
+            setText(getTranslate(lang, messages.categoryAdded) + `"${newCategory}"`);
         }
     }
 

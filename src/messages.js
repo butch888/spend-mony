@@ -159,6 +159,25 @@ export const messages = {
         en: 'Add'
     },
     //end PromptAdd
+
+    //start Table
+    tableDate: {
+        ru: 'Дата',
+        en: 'Date'
+    },
+    tableCategory: {
+        ru: 'Категория',
+        en: 'Category'
+    },
+    tableTitle: {
+        ru: 'Категория',
+        en: 'Category'
+    },
+    tableCost: {
+        ru: 'Стоимость',
+        en: 'Cost'
+    }
+    //end Table
 };
 
 export const getTranslate = (lang , message) => {

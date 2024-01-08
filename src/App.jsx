@@ -8,8 +8,12 @@ import './App.css'
 import { date } from './date';
 import { arrCategories } from './data';
 import { getTranslate, messages } from './messages';
+import { useQuerySpending } from './hooks/useQuerySpending';
 
 function App() {
+
+  const {data} = useQuerySpending();
+  console.log(data);
  
   let spends = localStorage.getItem('spends');
 
@@ -31,7 +35,7 @@ function App() {
         month = '0' + (month);
     } 
 
-  const [data, setData] = useState(shoppings);
+  const [data1, setData] = useState(shoppings);
   const [purchases, setPurchases] = useState([]);
   const [time, setTime] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Категории');
@@ -52,46 +56,46 @@ function App() {
 
 
     } else if (selectedCategory === getTranslate(lang, messages.category) && index === "btnMonth") {
-      const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
+      const filteretData = data1.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
       setPurchases(filteretData);
       setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.month));
 
 
     } else if (selectedCategory === getTranslate(lang, messages.category) && index === "btnYear") {
-      const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear());
+      const filteretData = data1.filter(elem => getYear(elem.date) === new Date().getFullYear());
       setPurchases(filteretData);
       setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.year));
     
 
     } else if (selectedCategory === getTranslate(lang, messages.category) && index === "btnAllTime") {
-      setPurchases(data);
+      setPurchases(data1);
       setTime(getTranslate(lang, messages.period) + selectedCategory.toLowerCase() + getTranslate(lang, messages.allTime));
 
 
     } else if (index === "btnToday") {
-      const filteretData = data.filter(elem => elem.kind === selectedCategory && elem.date === date )
+      const filteretData = data1.filter(elem => elem.kind === selectedCategory && elem.date === date )
       setPurchases(filteretData);
       setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.today));
 
 
     } else if (index === "btnMonth") {
-      const filteretData = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
+      const filteretData = data1.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && elem.kind === selectedCategory && getYear(elem.date) === new Date().getFullYear());
       setPurchases(filteretData);
       setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.month));
 
 
     } else if (index === "btnYear") {
-      const filteretData = data.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
+      const filteretData = data1.filter(elem => getYear(elem.date) === new Date().getFullYear() && elem.kind === selectedCategory);
       setPurchases(filteretData);
       setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.year));
 
 
     } else if (index === "btnAllTime") {
-      const filteretData = data.filter(elem => elem.kind === selectedCategory);
+      const filteretData = data1.filter(elem => elem.kind === selectedCategory);
       setPurchases(filteretData);
       setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.allTime));
     }
-  },[data, selectedCategory, lang]);
+  },[data1, selectedCategory, lang]);
 
   function getDay(str) {
     const dotIndex = str.indexOf('.');
@@ -146,7 +150,7 @@ function App() {
           <NavLink to={"/categories"}>{getTranslate(lang, messages.appNavCategory)}</NavLink>
         </nav>
         <Routes>
-          <Route path="/" element={<Categories data={data} 
+          <Route path="/" element={<Categories data={data1} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
@@ -162,7 +166,7 @@ function App() {
                   setIndex={setIndex} />}>
 
           </Route>
-          <Route path="/statistics" element={<Statistic data={data} 
+          <Route path="/statistics" element={<Statistic data={data1} 
                   setData={setData} 
                   purchases={purchases} 
                   setPurchases={setPurchases}
@@ -190,7 +194,7 @@ function App() {
                   lang={lang}
                   index={index} setIndex={setIndex} />}>
           </Route>
-          <Route path="/categories" element={<EditCategory data={data} 
+          <Route path="/categories" element={<EditCategory data={data1} 
                   setData={setData} 
                   setPurchases={setPurchases}
                   purchases={purchases}
