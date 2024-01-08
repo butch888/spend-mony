@@ -170,8 +170,8 @@ export const messages = {
         en: 'Category'
     },
     tableTitle: {
-        ru: 'Категория',
-        en: 'Category'
+        ru: 'Название',
+        en: 'Title'
     },
     tableCost: {
         ru: 'Стоимость',
