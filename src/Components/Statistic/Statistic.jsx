@@ -5,14 +5,22 @@ import { date } from "../../date";
 import Table from '../Table/Table';
 import { getTranslate, messages } from '../../messages';
 
-const arrMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+
+const arrMonth = [];
+for (let i = 0; i <= 12; i++) {
+    arrMonth.push(i);
+}
 
 const arrYears = [];
 for (let i = 2021; i <= 2032; i++) {
     arrYears.push(i);
 }
 
-const arrDays = Array.from(Array(31).keys(), num => num + 1);
+const arrDays = [];
+for (let i = 0; i <= 31; i++) {
+    arrDays.push(i);
+}
 
 function Statistic({data, setData,
                     purchases, setPurchases,  
@@ -109,17 +117,26 @@ function Statistic({data, setData,
 
     function handleSearch(e) {
         setIndex(e.target.id);
-        if(selectedCategory === 'Категории' || selectedCategory === 'Categories') {
-            let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear);
+        if(selectedCategory === getTranslate(lang, messages.category)) {
+            if (+selectedDay === 0 && +selectedMonth !== 0 && +selectedYear !== 0) {
+                let copy = data.filter(elem => getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear);
+                setPurchases(copy);
+            } else if (+selectedDay === 0 && +selectedMonth === 0 && +selectedYear !== 0) {
+                let copy = data.filter(elem => getYear(elem.date) === +selectedYear);
+                setPurchases(copy);
+            } else {
+                let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear);
             setPurchases(copy);
+            }
+            
         } else {
             let copy = data.filter(elem => getDay(elem.date) === +selectedDay && getMonth(elem.date) === +selectedMonth && getYear(elem.date) === +selectedYear && selectedCategory === elem.kind);
             setPurchases(copy);
         }
 
-        if(selectedDay === day && selectedMonth === month && selectedYear === year) {
-            setTime(date);
-        } else {
+        if(selectedDay !== day && selectedMonth === month && selectedYear === year) {
+            setTime(`${selectedMonth}.${selectedYear}`);
+        }  else {
             setTime(`${selectedDay}.${selectedMonth}.${selectedYear}`)
         }
     }
