@@ -32,7 +32,7 @@ function Statistic({data, setData,
       purchases.map((e) => sum = sum + +e.cost)
       return sum;
     }
-   
+    
     function handleToday(e) {
         setIndex(e.target.id);
         if (selectedCategory === getTranslate(lang, messages.category)){
@@ -45,12 +45,13 @@ function Statistic({data, setData,
             setTime(getTranslate(lang, messages.nowCategory) + `"${selectedCategory}"` + getTranslate(lang, messages.today));
         } 
     }
- 
+    
     function handleMonth(e) {
         setIndex(e.target.id);
         setIsMonth(true);
-        if (selectedCategory === getTranslate(lang, messages.category)){
+        if (selectedCategory === getTranslate(lang, messages.category)) {
             let copy = data.filter(elem => getMonth(elem.date) === new Date().getMonth() + 1 && getYear(elem.date) === new Date().getFullYear());
+            data.map(elem => console.log(getYear(elem.date)))
             setPurchases(copy);
             setTime(getTranslate(lang, messages.period) + getTranslate(lang, messages.category).toLowerCase() + getTranslate(lang, messages.month));
         } else {

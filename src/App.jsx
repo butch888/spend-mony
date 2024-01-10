@@ -13,7 +13,7 @@ import { useQuerySpending } from './hooks/useQuerySpending';
 function App() {
 
   const {data} = useQuerySpending();
-  console.log(data);
+  // console.log(data);
  
   let spends = localStorage.getItem('spends');
 
@@ -23,11 +23,13 @@ function App() {
   let strFromStorage = localStorage.getItem('spends');
   let shoppings = JSON.parse(strFromStorage);
 
+
   const shoppingsToday = shoppings.filter(elem => elem.date === date); // показывает только сегодняшние записи
 
   let day = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
+
     if (month === 9) {
         month = 10;
     }
@@ -113,7 +115,7 @@ function App() {
   }
 
   function getYear(str) {
-    str = str.slice(6);
+    str = str.slice(5);
     const year = Number(str);
     return year;
   }

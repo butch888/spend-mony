@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "../../backend_for_mony"
+		},
+		{
+			"path": "../../full-todo"
+		},
+		{
+			"path": "../../test"
 		}
 	],
 	"settings": {
