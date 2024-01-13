@@ -107,16 +107,18 @@ function App() {
   }
 
   function getMonth(str) {
-    str = str.slice(3);
+    str = str.slice(4);
     const dotIndex = str.indexOf('.');
     const numberStr = str.slice(0, dotIndex);
     const number = Number(numberStr);
+    console.log(number)
     return number;
   }
 
   function getYear(str) {
-    str = str.slice(5);
+    str = str.slice(6);
     const year = Number(str);
+    console.log(year)
     return year;
   }
 
