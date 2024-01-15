@@ -9,7 +9,7 @@ import PromptEdit from '../Popups/PromptEdit/PromptEdit';
 import Selects from '../Selects/Selects';
 import { getTranslate, messages } from '../../messages';
 
-function EditCategory({ selectedCategory, setSelectedCategory, data, setData, setPurchases, purchases, onClose, setText, text, setActiveAlert, activAlert, time, categories, setCategories, lang }) {
+function EditCategory({ selectedCategory, setSelectedCategory, data, setData, setPurchases, onClose, setText, text, setActiveAlert, activAlert, time, categories, setCategories, lang }) {
 
     const [activPromptAdd, setActivePromptAdd] = useState(false);
     const [activPromptEdit, setActivePromptEdit] = useState(false);

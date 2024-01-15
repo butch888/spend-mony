@@ -13,8 +13,10 @@ import { useQuerySpending } from './hooks/useQuerySpending';
 function App() {
 
   const {data} = useQuerySpending();
-  // console.log(data);
- 
+  console.log(data);
+  
+
+  
   let spends = localStorage.getItem('spends');
 
   if(spends === null) {
@@ -50,7 +52,7 @@ function App() {
   const [categories, setCategories] = useState(arrCategories);
   const [lang, setLang] = useState('ru');
   const [index , setIndex] = useState('btnToday');
-    
+
   useEffect(() => {
     if (selectedCategory === getTranslate(lang, messages.category) && index === "btnToday") {
       setPurchases(shoppingsToday);

@@ -1,7 +1,7 @@
 import {nanoid} from 'nanoid';
 import { Select, Button, StatisticWrapper, Period, Result } from "../../AppStyle";
 import Selects from "../Selects/Selects";
-import { date } from "../../date";
+import { day, month, year } from "../../date";
 import Table from '../Table/Table';
 import { getTranslate, messages } from '../../messages';
 
@@ -139,16 +139,6 @@ function Statistic({data, setData,
             setTime(`${selectedDay}.${selectedMonth}.${selectedYear}`)
         }
     }
-
-    let day = new Date().getDate();
-    let month = new Date().getMonth() + 1;
-    let year = new Date().getFullYear();
-    if (month === 9) {
-        month = 10;
-    }
-    if (month > 0 && month < 10) {
-        month = '0' + (month);
-    } 
     
     const bgCol = '#014707';
 

@@ -1,16 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "."
-		},
-		{
-			"path": "../../backend_for_mony"
+			"path": "../../test"
 		},
 		{
 			"path": "../../full-todo"
 		},
 		{
-			"path": "../../test"
+			"path": "."
 		}
 	],
 	"settings": {
